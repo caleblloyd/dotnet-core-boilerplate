@@ -1,0 +1,33 @@
+# force lf
+* text eol=lf
+
+# text files 
+*.txt text
+*.php text
+*.sh text
+*.js text
+*.css text
+*.md text
+
+# binary files
+*.7z binary
+*.bmp binary
+*.data binary
+*.dll binary
+*.exe binary
+*.fla binary
+*.flv binary
+*.gif binary
+*.gz binary
+*.ico binary
+*.jpg binary
+*.jpeg binary
+*.mov binary
+*.mp3 binary
+*.mp4 binary
+*.png binary
+*.phar binary
+*.swf binary
+*.ttf binary
+*.zip binary
+*.pdf binary

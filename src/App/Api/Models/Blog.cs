@@ -10,7 +10,7 @@ namespace App.Models{
             modelBuilder.Entity<Blog>(entity => {
                 entity.HasMany(m => m.Posts)
                     .WithOne(m => m.Blog)
-                    .HasForeignKey(m => m.Blog)
+                    .HasForeignKey(m => m.BlogId)
                     .HasPrincipalKey(m => m.Id);
             });
 

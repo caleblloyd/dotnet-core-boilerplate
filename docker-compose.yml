@@ -1,0 +1,30 @@
+version: "3.1"
+
+services:
+  web:
+    build: ./build/docker/dotnet
+    container_name: app-web
+    environment:
+      - DEVENV=dev
+    links:
+      - db
+    ports:
+      - "48000:5000"
+    volumes:
+      - ./:/dotnet
+  db:
+    image: mysql:5.7.17
+    container_name: app-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+    ports:
+      - "48002:3306"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.6
+    container_name: app-phpmyadmin
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+    links:
+      - db
+    ports:
+    - "48001:80"

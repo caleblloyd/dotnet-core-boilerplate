@@ -1,3 +1,7 @@
 {
-    
+    "Data": {
+        "MySql": {
+            "ConnectionString": "host=dockerhost;port=48002;user id=root;password=test;database=app;"
+        }
+    }
 }

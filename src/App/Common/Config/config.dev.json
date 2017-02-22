@@ -1,3 +1,7 @@
 {
-    
+    "Data": {
+        "MySql": {
+            "ConnectionString": "host=db;port=3306;user id=root;password=test;database=app;"
+        }
+    }
 }

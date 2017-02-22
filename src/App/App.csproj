@@ -30,6 +30,15 @@
       <Version>1.1.1-prerelease-*</Version>
     </PackageReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools">
+      <Version>1.0.0-msbuild1-update1</Version>
+    </DotNetCliToolReference>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet">
+      <Version>1.0.0-msbuild1-final</Version>
+    </DotNetCliToolReference>
+  </ItemGroup>
   
   <ItemGroup>
     <Folder Include="**" />

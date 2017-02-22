@@ -1,0 +1,1 @@
+Static files that the app may need go in this directory.

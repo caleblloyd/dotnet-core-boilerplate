@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: blog-DEVENV
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: blog-DEVENV
+    spec:
+      containers:
+      - name: nginx
+        image: gcr.io/caleb-lloyd/blog-nginx:VERSION
+        ports:
+        - containerPort: 80
+      - name: dotnet
+        image: gcr.io/caleb-lloyd/blog-dotnet:VERSION
+        ports:
+        - containerPort: 5000

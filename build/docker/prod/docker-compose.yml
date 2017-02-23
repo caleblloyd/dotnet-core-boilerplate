@@ -1,0 +1,9 @@
+version: "2"
+
+services:
+  dotnet:
+    build: ./dotnet
+    image: "gcr.io/caleb-lloyd/blog-dotnet:${TAG}"
+  nginx:
+    build: ./nginx
+    image: "gcr.io/caleb-lloyd/blog-nginx:${TAG}"

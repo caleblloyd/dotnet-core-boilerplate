@@ -20,7 +20,7 @@ namespace App.Config{
                     nextDir = new DirectoryInfo(dir).Parent?.FullName;
                     
                 if (nextDir == null)
-                    throw new InvalidOperationException("Could not find App/Common/Config/config.json");
+                    throw new InvalidOperationException("Could not find src/App/Common/Config/config.json");
                 dir = nextDir;
             }
             return dir;

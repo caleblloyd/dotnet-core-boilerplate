@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>    
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\App\App.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.DotNet.InternalAbstractions">
+      <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk">
+      <Version>15.0.0-*</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.TestPlatform.TestHost">
+      <Version>15.0.0-*</Version>
+    </PackageReference>
+    <PackageReference Include="xunit">
+      <Version>2.2.0-beta5-build3474</Version>
+    </PackageReference>
+    <PackageReference Include="xunit.runner.visualstudio">
+      <Version>2.2.0-beta5-build1225</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="**" />
+  </ItemGroup>
+
+</Project>

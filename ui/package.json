@@ -1,0 +1,8 @@
+{
+    "dependencies": {
+        "bootstrap": "3",
+        "es6-promise": "^4.0.5",
+        "isomorphic-fetch": "^2.2.1",
+        "marked": "^0.3.6"
+    }
+}

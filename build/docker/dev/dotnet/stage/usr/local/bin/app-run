@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+cd /dotnet/src/App
+dotnet restore
+dotnet run -c Debug migrate
+dotnet watch run -c Debug

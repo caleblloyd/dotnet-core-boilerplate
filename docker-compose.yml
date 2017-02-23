@@ -1,30 +1,49 @@
-version: "3.1"
+version: "2"
 
 services:
-  web:
-    build: ./build/docker/dotnet
-    container_name: app-web
+  dotnet:
+    build: ./build/docker/dev/dotnet
+    container_name: app-dev-dotnet
     environment:
       - DEVENV=dev
     links:
       - db
     ports:
-      - "48000:5000"
+      - "48001:5000"
     volumes:
-      - ./:/dotnet
+      - ./dotnet/src:/dotnet/src
+      - ./dotnet/tests:/dotnet/tests
+      - ./dotnet/App.sln:/dotnet/App.sln
+  ui:
+    build: ./build/docker/dev/ui
+    container_name: app-dev-ui
+    environment:
+      - DEVENV=dev
+    ports:
+      - "48002:4000"
+    volumes:
+      - ./ui:/ui
+  nginx:
+    build: ./build/docker/dev/nginx
+    container_name: app-dev-nginx
+    links:
+      - dotnet
+      - ui
+    ports:
+      - "48000:80"
   db:
     image: mysql:5.7.17
-    container_name: app-db
+    container_name: app-dev-db
     environment:
       - MYSQL_ROOT_PASSWORD=test
     ports:
-      - "48002:3306"
+      - "48004:3306"
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.6
-    container_name: app-phpmyadmin
+    container_name: app-dev-phpmyadmin
     environment:
       - MYSQL_ROOT_PASSWORD=test
     links:
       - db
     ports:
-    - "48001:80"
+    - "48003:80"

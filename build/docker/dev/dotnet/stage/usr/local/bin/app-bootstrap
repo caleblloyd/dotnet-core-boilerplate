@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+cd /dotnet
+
+USER_ID=$(ls -l | grep src | awk '{print $3}')
+GROUP_ID=$(ls -l | grep src | awk '{print $4}')
+id $USER_ID
+if [ $? -ne 0 ]; then
+    userdel docker
+    groupdel docker
+    groupadd -g $GROUP_ID docker
+    useradd -m -u $USER_ID -g docker -s /bin/bash docker
+    chown -R docker:docker /home/docker
+    USER_ID=docker
+    GROUP_ID=docker
+fi
+
+chown "$USER_ID:$GROUP_ID" /dotnet
+su $USER_ID -c app-run

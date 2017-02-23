@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-cd /dotnet
+cd /mnt/dotnet
 
 USER_ID=$(ls -l | grep src | awk '{print $3}')
 GROUP_ID=$(ls -l | grep src | awk '{print $4}')
@@ -15,5 +15,8 @@ if [ $? -ne 0 ]; then
     GROUP_ID=docker
 fi
 
+# remove all of the symlinks if any exist
+rm -rf /dotnet
+mkdir /dotnet
 chown "$USER_ID:$GROUP_ID" /dotnet
 su $USER_ID -c app-run

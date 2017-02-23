@@ -11,9 +11,7 @@ services:
     ports:
       - "48001:5000"
     volumes:
-      - ./dotnet/src:/dotnet/src
-      - ./dotnet/tests:/dotnet/tests
-      - ./dotnet/App.sln:/dotnet/App.sln
+      - ./dotnet:/mnt/dotnet
   ui:
     build: ./build/docker/dev/ui
     container_name: app-dev-ui

@@ -4,6 +4,11 @@ python:
 sudo: required
 dist: trusty
 
+branches:
+  only:
+    - master
+    - develop
+
 services:
   - docker
 

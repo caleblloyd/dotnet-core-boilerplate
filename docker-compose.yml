@@ -6,6 +6,7 @@ services:
     container_name: app-dev-dotnet
     environment:
       - DEVENV=dev
+      - DOTNET_USE_POLLING_FILE_WATCHER=true
     links:
       - db
     ports:

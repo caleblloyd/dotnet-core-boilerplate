@@ -5,7 +5,8 @@ import Blog from 'src/models/blog'
 
 new Vue({
   el: '#app',
-  render: h => <h1>Hello World 2!</h1>
+  render: h => <div>
+    <h1>Container Demo Frontend</h1>
+    <div>Using vue.js</div>
+  </div>
 })
-
-Blog.all();

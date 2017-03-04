@@ -1,8 +1,10 @@
 import Vue from 'vue'
-let api:any = require('vue-hot-reload-api')
 declare const module: any;
 
+var api: any;
+
 if (module && module.hot){
+    api = require('vue-hot-reload-api')
     api.install(Vue);
 }
 

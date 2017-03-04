@@ -1,7 +1,10 @@
 import Vue from 'vue'
-import App from './components/app/app'
+declare const System: any;
 
-new Vue({
-    el: '#app',
-    render: h => h(App)
-})
+System.import('./components/app/app').then(async (module : any) => {
+    let app = (new module.default)
+    await module.initLoad;
+    app.$mount('#app')
+}).catch((err : any) => {
+    console.error(err);
+});

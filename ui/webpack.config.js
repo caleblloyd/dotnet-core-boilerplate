@@ -2,13 +2,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var path = require('path');
 var webpack = require("webpack");
 
-let config = {
-  entry: {
-    app: [
-      'whatwg-fetch',
-      './src/components/app/app.ts',
-    ]
-  },
+let commonConfig = {
   module: {
     rules: [
       {
@@ -21,17 +15,7 @@ let config = {
       }
     ],
   },
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
-  },
   devtool: 'inline-source-map',
-  plugins: [
-    new CopyWebpackPlugin([
-        { from: './src/public' }
-    ])
-  ],
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
@@ -40,23 +24,72 @@ let config = {
   }
 }
 
-if (process.env.NODE_ENV === 'production') {
-  // production optomized defaults
-  config.plugins.push(new webpack.optimize.UglifyJsPlugin())
-} else {
-  // development server settings
-  config.entry.app.unshift('webpack/hot/only-dev-server')
-  config.entry.app.unshift('webpack-dev-server/client?http://dockerhost:48000/')
-  config.plugins.push(new webpack.HotModuleReplacementPlugin());
-  config.plugins.push(new webpack.NamedModulesPlugin());
-
-  config.devServer = {
+let devConfig = {
+  entry: {
+    app: [
+      'webpack-dev-server/client?/',
+      'webpack/hot/only-dev-server',
+      'whatwg-fetch',
+      './src/index',
+    ]
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin()
+  ],
+  output: {
+    filename: 'bundle.js',
+    publicPath: '/assets/'
+  },
+  devServer: {
     host: '0.0.0.0',
     port: 3000,
     historyApiFallback: true,
     inline: false,
     hot: true,
+    contentBase: './src/public'
   }
 }
 
-module.exports = config
+let prodConfig = {
+  entry: {
+    app: [
+      'whatwg-fetch',
+      './src/index',
+    ]
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin(),
+    new CopyWebpackPlugin([{
+      from: path.resolve(__dirname, 'src', 'public'),
+      to: path.resolve(__dirname, 'dist')
+    }])
+  ],
+  output: {
+    filename: 'bundle.js',
+    publicPath: '/assets/',
+    path: path.resolve(__dirname, 'dist', 'assets')
+  }
+}
+
+let ssrConfig = {
+  entry: {
+    app: [
+      './server'
+    ]
+  },
+  output: {
+    filename: 'server.js',
+    path: path.resolve(__dirname, 'dist-ssr')
+  },
+  target: 'node'
+}
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports = [
+    Object.assign({}, commonConfig, prodConfig),
+    Object.assign({}, commonConfig, ssrConfig)
+  ]
+} else {
+  module.exports = Object.assign({}, commonConfig, devConfig)
+}

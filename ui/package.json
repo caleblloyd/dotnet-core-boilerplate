@@ -11,6 +11,7 @@
     "awesome-typescript-loader": "^3.0.8",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.2",
+    "express": "^4.15.0",
     "html-loader": "^0.4.5",
     "raw-loader": "^0.5.1",
     "tslib": "^1.6.0",
@@ -19,6 +20,7 @@
     "vue-class-component": "^5.0.0",
     "vue-hot-reload-api": "^2.0.11",
     "vue-router": "^2.3.0",
+    "vue-server-renderer": "^2.2.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1",
     "whatwg-fetch": "^2.0.3"

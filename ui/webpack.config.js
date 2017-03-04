@@ -2,11 +2,9 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var path = require('path');
 var webpack = require("webpack");
 
-module.exports = {
+let config = {
   entry: {
     app: [
-      "webpack-dev-server/client?http://dockerhost:48000/",
-      'webpack/hot/only-dev-server',
       'whatwg-fetch',
       './src/components/app/app.ts',
     ]
@@ -32,17 +30,8 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
         { from: './src/public' }
-    ]),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    ])
   ],
-  devServer: {
-    host: '0.0.0.0',
-    port: 3000,
-    historyApiFallback: true,
-    inline: false,
-    hot: true,
-  },
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
@@ -50,3 +39,24 @@ module.exports = {
     extensions: ['.ts', '.js']
   }
 }
+
+if (process.env.NODE_ENV === 'production') {
+  // production optomized defaults
+  config.plugins.push(new webpack.optimize.UglifyJsPlugin())
+} else {
+  // development server settings
+  config.entry.app.unshift('webpack/hot/only-dev-server')
+  config.entry.app.unshift('webpack-dev-server/client?http://dockerhost:48000/')
+  config.plugins.push(new webpack.HotModuleReplacementPlugin());
+  config.plugins.push(new webpack.NamedModulesPlugin());
+
+  config.devServer = {
+    host: '0.0.0.0',
+    port: 3000,
+    historyApiFallback: true,
+    inline: false,
+    hot: true,
+  }
+}
+
+module.exports = config

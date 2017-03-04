@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "build": "NODE_ENV='production' webpack"
   },
   "dependencies": {
     "awesome-typescript-loader": "^3.0.8",

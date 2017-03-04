@@ -19,7 +19,7 @@ services:
     environment:
       - DEVENV=dev
     ports:
-      - "48002:4000"
+      - "48002:3000"
     volumes:
       - ./ui:/ui
   nginx:

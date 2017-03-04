@@ -8,7 +8,7 @@ declare const System: any;
 Vue.use(VueRouter)
 
 function makeLazyLoad(component: string){
-  return () => System.import('../' + component + '/' + component).then((module : any) => {
+  return () => System.import('../' + component).then((module : any) => {
       return module.default;
   }).catch((err : any) => {
       console.error(err);
@@ -19,8 +19,8 @@ function makeLazyLoad(component: string){
 const router = new VueRouter({
     mode: 'history',
     routes: [
-        { path: '/', name: 'posts', component: makeLazyLoad('posts') },
-        { path: '/authors', name: 'authors', component: makeLazyLoad('authors') }
+        { path: '/', name: 'posts', component: makeLazyLoad('posts/PostsComponent') },
+        { path: '/authors', name: 'authors', component: makeLazyLoad('authors/AuthorsComponent') }
     ]
 });
 

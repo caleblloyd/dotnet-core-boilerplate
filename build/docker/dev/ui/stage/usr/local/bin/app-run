@@ -2,4 +2,4 @@
 
 cd /ui
 yarn install
-vbuild src/index.js --dev --host 0.0.0.0
+yarn run start

@@ -5,7 +5,7 @@ var webpack = require("webpack");
 module.exports = {
   entry: {
     app: [
-      "webpack-dev-server/client?http://localhost:3000/",
+      "webpack-dev-server/client?http://dockerhost:48000/",
       'webpack/hot/only-dev-server',
       'whatwg-fetch',
       './src/components/app/app.ts',
@@ -19,11 +19,7 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        loader: 'raw-loader'
-      },
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'html-loader'
       }
     ],
   },
@@ -34,16 +30,18 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   plugins: [
+    new CopyWebpackPlugin([
+        { from: './src/public' }
+    ]),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin()
   ],
   devServer: {
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 3000,
     historyApiFallback: true,
     inline: false,
     hot: true,
-    contentBase: './src/public'
   },
   resolve: {
     alias: {

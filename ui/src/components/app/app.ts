@@ -30,13 +30,9 @@ export const initLoad = new Promise((resolve, reject) => {
     })
 });
 
+@Component({
+    router,
+    template
+})
 export default class App extends Vue{
-
-    constructor(options?: ComponentOptions<Vue>){
-        options = Object.assign({}, options, {
-            router,
-            template: template
-        })
-        super(options)
-    }
 }

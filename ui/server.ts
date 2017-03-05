@@ -1,5 +1,5 @@
 import layout from './src/public/index.html'
-import App, {router, initLoad} from './src/components/app/app'
+import App, {router, initLoad} from './src/controllers/AppController'
 import express from 'express'
 
 let renderer = require('vue-server-renderer').createRenderer()

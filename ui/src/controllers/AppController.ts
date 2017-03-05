@@ -1,15 +1,15 @@
 import Vue, {ComponentOptions} from 'vue'
 import VueRouter from 'vue-router'
 import Component from 'vue-class-component'
-import template from './app.html'
+import template from '../views/app/app.html'
 
 declare const System: any;
 
 Vue.use(VueRouter)
 
-function makeLazyLoad(component: string){
-  return () => System.import('../' + component).then((module : any) => {
-      return module.default;
+export function makeLazyLoad(controller: string, component: string){
+  return () => System.import('./' + controller).then((module : any) => {
+      return module[component];
   }).catch((err : any) => {
       console.error(err);
       console.log("Chunk loading failed");
@@ -19,8 +19,9 @@ function makeLazyLoad(component: string){
 export const router = new VueRouter({
     mode: 'history',
     routes: [
-        { path: '/', name: 'posts', component: makeLazyLoad('posts/PostsComponent') },
-        { path: '/authors', name: 'authors', component: makeLazyLoad('authors/AuthorsComponent') }
+        { path: '/', name: 'posts', component: makeLazyLoad('PostsController', 'List') },
+        { path: '/authors', name: 'authors', component: makeLazyLoad('AuthorsController', 'List') },
+        { path: '/author', name: 'author', component: makeLazyLoad('AuthorsController', 'View') },
     ]
 });
 

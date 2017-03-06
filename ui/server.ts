@@ -1,5 +1,5 @@
 import layout from './src/public/index.html'
-import App, {router, initLoad} from './src/controllers/AppController'
+import App from './src/controllers/AppController'
 import express from 'express'
 
 let renderer = require('vue-server-renderer').createRenderer()
@@ -9,14 +9,17 @@ server.use('/assets', express.static(
   './dist/assets'
 ))
 
+server.get('/favicon.ico', (request: any, response: any) => {
+    response.status(204).send()
+})
+
 server.get('*', async (request: any, response: any) => {
   
-  let appInstance = new App();
-  router.push(request.url)
-  await initLoad;
+  let app = new App(request.url);
+  await app.initLoad;
 
   renderer.renderToString(
-    appInstance,
+    app,
     function (error:any, html:any) {
       if (error) {
         console.error(error)

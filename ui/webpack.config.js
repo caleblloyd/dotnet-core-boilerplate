@@ -63,7 +63,10 @@ let prodConfig = {
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, 'src', 'public'),
       to: path.resolve(__dirname, 'dist')
-    }])
+    }]),
+    new webpack.DefinePlugin({
+      'DEVENV': JSON.stringify('prod'),
+    })
   ],
   output: {
     filename: 'bundle.js',
@@ -78,6 +81,11 @@ let ssrConfig = {
       './server'
     ]
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'DEVENV': JSON.stringify('ssr'),
+    })
+  ],
   output: {
     filename: 'server.js',
     path: path.resolve(__dirname, 'dist-ssr')

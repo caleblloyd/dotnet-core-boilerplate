@@ -6,7 +6,7 @@
     },
     "Frontend": {
         "CORS": {
-            "Host": "http://localhost:4000"
+            "Host": "http://localhost:5000"
         }
     },
     "Logging": {

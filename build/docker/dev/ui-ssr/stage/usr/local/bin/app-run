@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+cd /ui
+
+pid=""
+script="dist-ssr/server.js"
+last_modified=""
+
+while true    
+do
+    if [ -f $script ]
+    then
+        modified=$(stat -c %Y $script)
+        if [ "$modified" != "$last_modified" ]
+        then    
+            if ps -p $pid > /dev/null 2>&1
+            then
+                kill $pid
+                wait $pid
+            fi
+            node $script &
+            pid=$!
+            last_modified=$modified
+        fi
+    fi
+   sleep 0.1
+done

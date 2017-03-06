@@ -2,6 +2,8 @@ import layout from './src/public/index.html'
 import App from './src/controllers/AppController'
 import express from 'express'
 
+console.log("some change")
+
 let renderer = require('vue-server-renderer').createRenderer()
 
 let server = express()
@@ -32,8 +34,8 @@ server.get('*', async (request: any, response: any) => {
 
 })
 
-// Listen on port 5000
-server.listen(5000, function (error: any) {
+// Listen on port 4000
+server.listen(4000, '0.0.0.0', function (error: any) {
   if (error) throw error
-  console.log('Server is running at localhost:5000')
+  console.log('Server is running at 0.0.0.0:4000')
 })

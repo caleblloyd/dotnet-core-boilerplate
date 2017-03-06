@@ -1,4 +1,5 @@
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var WriteFilePlugin = require('write-file-webpack-plugin')
 var path = require('path');
 var webpack = require("webpack");
 
@@ -84,11 +85,15 @@ let ssrConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'DEVENV': JSON.stringify('ssr'),
-    })
+    }),
+    new WriteFilePlugin()
   ],
   output: {
     filename: 'server.js',
     path: path.resolve(__dirname, 'dist-ssr')
+  },
+  devServer: {
+    outputPath: path.resolve(__dirname, 'dist-ssr')
   },
   target: 'node'
 }
@@ -99,5 +104,8 @@ if (process.env.NODE_ENV === 'production') {
     Object.assign({}, commonConfig, ssrConfig)
   ]
 } else {
-  module.exports = Object.assign({}, commonConfig, devConfig)
+  module.exports = [
+    Object.assign({}, commonConfig, devConfig),
+    Object.assign({}, commonConfig, ssrConfig)
+  ]
 }

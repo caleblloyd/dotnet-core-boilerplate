@@ -22,6 +22,15 @@ services:
       - "48002:3000"
     volumes:
       - ./ui:/ui
+  ui-ssr:
+    build: ./build/docker/dev/ui-ssr
+    container_name: app-dev-ui-ssr
+    environment:
+      - DEVENV=dev
+    ports:
+      - "48003:4000"
+    volumes:
+      - ./ui:/ui
   nginx:
     build: ./build/docker/dev/nginx
     container_name: app-dev-nginx
@@ -36,7 +45,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=test
     ports:
-      - "48004:3306"
+      - "48005:3306"
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.6
     container_name: app-dev-phpmyadmin
@@ -45,4 +54,4 @@ services:
     links:
       - db
     ports:
-    - "48003:80"
+    - "48004:80"

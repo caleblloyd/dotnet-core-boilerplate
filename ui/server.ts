@@ -19,7 +19,7 @@ server.get('*', async (request: any, response: any) => {
   await app.initLoad;
 
   renderer.renderToString(
-    app,
+    app.vueComponent,
     function (error:any, html:any) {
       if (error) {
         console.error(error)

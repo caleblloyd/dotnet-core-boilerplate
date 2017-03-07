@@ -1,10 +1,10 @@
 import Vue from 'vue'
-declare const System: any;
+import App from './controllers/AppController'
 
-System.import('./controllers/AppController').then(async (module : any) => {
-    let app = (new module.default)
+async function runApp(){
+    let app = new App()
     await app.initLoad
-    app.$mount('#app')
-}).catch((err : any) => {
-    console.error(err);
-});
+    app.vueComponent.$mount('#app')
+}
+
+runApp()

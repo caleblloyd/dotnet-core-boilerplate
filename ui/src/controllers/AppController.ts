@@ -14,9 +14,11 @@ declare const System: any;
 
 Vue.use(VueRouter)
 
-export default class App extends Vue{
+export default class App{
 
     initLoad: Promise<any>
+
+    vueComponent : Vue
 
     constructor(initialPath?: string){
 
@@ -27,12 +29,10 @@ export default class App extends Vue{
         if (initialPath)
             router.push(initialPath)
 
-        let options = {
+        this.vueComponent = new Vue({
             router,
             template: template
-        }
-
-        super(options);
+        })
 
         this.initLoad = new Promise((resolve) => {
             router.onReady(() => {

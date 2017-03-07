@@ -2,8 +2,6 @@ import layout from './src/public/index.html'
 import App from './src/controllers/AppController'
 import express from 'express'
 
-console.log("some change")
-
 let renderer = require('vue-server-renderer').createRenderer()
 
 let server = express()

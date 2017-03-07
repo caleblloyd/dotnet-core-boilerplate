@@ -37,6 +37,7 @@ services:
     links:
       - dotnet
       - ui
+      - ui-ssr
     ports:
       - "48000:80"
   db:

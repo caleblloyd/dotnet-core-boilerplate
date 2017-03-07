@@ -2,25 +2,26 @@
 
 cd /ui
 
-pid=""
+pid=0
+pid_zero=0
 script="dist-ssr/server.js"
-last_modified=""
+last_dir_list=""
 
 while true    
 do
     if [ -f $script ]
     then
-        modified=$(stat -c %Y $script)
-        if [ "$modified" != "$last_modified" ]
+        dir_list=$(ls -le dist-ssr/*)
+        if [ "$dir_list" != "$last_dir_list" ]
         then    
-            if ps -p $pid > /dev/null 2>&1
+            if [ "$pid" -gt "$pid_zero" ] && [ -d "/proc/$pid" ]
             then
                 kill $pid
                 wait $pid
             fi
             node $script &
             pid=$!
-            last_modified=$modified
+            last_dir_list=$dir_list
         fi
     fi
    sleep 0.1

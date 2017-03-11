@@ -8,6 +8,10 @@
     "build": "NODE_ENV='production' webpack"
   },
   "dependencies": {
+    "@types/core-js": "^0.9.37",
+    "@types/express": "^4.0.35",
+    "@types/node": "^7.0.8",
+    "@types/node-fetch": "^1.6.7",
     "awesome-typescript-loader": "^3.0.8",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.2",

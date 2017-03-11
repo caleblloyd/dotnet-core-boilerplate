@@ -2,9 +2,9 @@
 
 # make symlinks to everything except for `bin` and `obj` folders
 cd /mnt/dotnet
-find * -maxdepth 1 -name "*.sln" | \
+find * -maxdepth 0 -name "*.sln" | \
     xargs -I % sh -c 'ln -s "/mnt/dotnet/%" "/dotnet/%";'
-find * -mindepth 2 -maxdepth 2 ! -name "bin" ! -name "obj" | \
+find * -mindepth 1 -maxdepth 1 ! -name "bin" ! -name "obj" | \
     xargs -I % sh -c 'mkdir -p "/dotnet/$(dirname %)"; ln -s "/mnt/dotnet/%" "/dotnet/%";'
 
 # restore

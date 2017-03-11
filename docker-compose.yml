@@ -1,6 +1,35 @@
 version: "2"
 
 services:
+
+  ui:
+    build: ./build/docker/dev/ui
+    container_name: app-dev-ui
+    environment:
+      - DEVENV=dev
+    volumes:
+      - ./ui:/ui
+
+  ui-ssr:
+    build: ./build/docker/dev/ui-ssr
+    container_name: app-dev-ui-ssr
+    environment:
+      - DEVENV=dev
+    volumes:
+      - ./ui:/ui
+
+  nginx:
+    build: ./build/docker/dev/nginx
+    container_name: app-dev-nginx
+    links:
+      - dotnet
+      - ui
+      - ui-ssr
+    ports:
+      - "48000:8000"
+      - "48001:8001"
+      - "48002:8002"
+
   dotnet:
     build: ./build/docker/dev/dotnet
     container_name: app-dev-dotnet
@@ -10,43 +39,18 @@ services:
     links:
       - db
     ports:
-      - "48001:5000"
+      - "48010:5000"
     volumes:
       - ./dotnet:/mnt/dotnet
-  ui:
-    build: ./build/docker/dev/ui
-    container_name: app-dev-ui
-    environment:
-      - DEVENV=dev
-    ports:
-      - "48002:3000"
-    volumes:
-      - ./ui:/ui
-  ui-ssr:
-    build: ./build/docker/dev/ui-ssr
-    container_name: app-dev-ui-ssr
-    environment:
-      - DEVENV=dev
-    ports:
-      - "48003:4000"
-    volumes:
-      - ./ui:/ui
-  nginx:
-    build: ./build/docker/dev/nginx
-    container_name: app-dev-nginx
-    links:
-      - dotnet
-      - ui
-      - ui-ssr
-    ports:
-      - "48000:80"
+
   db:
     image: mysql:5.7.17
     container_name: app-dev-db
     environment:
       - MYSQL_ROOT_PASSWORD=test
     ports:
-      - "48005:3306"
+      - "48012:3306"
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.6
     container_name: app-dev-phpmyadmin
@@ -55,4 +59,4 @@ services:
     links:
       - db
     ports:
-    - "48004:80"
+    - "48011:80"

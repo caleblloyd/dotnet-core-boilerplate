@@ -5,7 +5,7 @@ const config = {
 }
 
 if (typeof(DEVENV) !== 'undefined' && (DEVENV == 'ssr' || DEVENV == 'prod')){
-    config.apiBase = 'http://nginx'
+    config.apiBase = 'http://nginx:8000'
 }
 
 export default config

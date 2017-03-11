@@ -9,11 +9,17 @@ server.use('/assets', express.static(
   './dist/assets'
 ))
 
-server.get('/favicon.ico', (request: any, response: any) => {
+server.get('/favicon.ico', (request: express.Request, response: express.Response) => {
     response.status(204).send()
 })
 
-server.get('*', async (request: any, response: any) => {
+server.get('*', async (request: express.Request, response: express.Response) => {
+
+  let modLayout = layout
+  let noscript = request.header("x-dotvue-noscript")
+  if (typeof(noscript) != "undefined" && noscript == "true"){
+    modLayout = layout.replace('<script src="assets/bundle.js"></script>', '')
+  }
   
   let app = new App(request.url);
   await app.initLoad;
@@ -27,7 +33,7 @@ server.get('*', async (request: any, response: any) => {
           .status(500)
           .send('Server Error')
       }
-      response.send(layout.replace('<div id="app"></div>', html))
+      response.send(modLayout.replace('<div id="app"></div>', html))
     })
 
 })

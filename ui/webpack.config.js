@@ -48,7 +48,11 @@ let devConfig = {
     historyApiFallback: true,
     inline: false,
     hot: true,
-    contentBase: './src/public'
+    contentBase: './src/public',
+    watchOptions: {
+      aggregateTimeout: 300,
+      poll: 1000
+    },
   }
 }
 

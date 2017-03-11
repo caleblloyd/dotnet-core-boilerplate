@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
 cd /ui
-yarn global add webpack-dev-server typings
 yarn install --no-bin-links
-typings install
 yarn run start

@@ -1,11 +1,15 @@
-declare const DEVENV: any
+declare const DEVENV: string
+declare const RUNTIMEENV: string
 
-const config = {
+let config = {
     apiBase: ''
 }
 
-if (typeof(DEVENV) !== 'undefined' && (DEVENV == 'ssr' || DEVENV == 'prod')){
-    config.apiBase = 'http://nginx:8000'
+if (RUNTIMEENV == 'server'){
+    if (DEVENV == 'alpha' || DEVENV == 'beta' || DEVENV == 'prod')
+        config.apiBase = 'http://localhost:8000'
+    else
+        config.apiBase = 'http://nginx:8000'
 }
 
 export default config

@@ -37,7 +37,11 @@ let devConfig = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    new webpack.DefinePlugin({
+      'DEVENV': JSON.stringify(process.env.DEVENV || 'local'),
+      'RUNTIMEENV': JSON.stringify('browser'),
+    })
   ],
   output: {
     filename: 'bundle.js',
@@ -84,7 +88,8 @@ let prodConfig = {
       to: path.resolve(__dirname, 'dist')
     }]),
     new webpack.DefinePlugin({
-      'DEVENV': JSON.stringify('prod'),
+      'DEVENV': JSON.stringify(process.env.DEVENV || 'local'),
+      'RUNTIMEENV': JSON.stringify('browser'),
     })
   ],
   output: {
@@ -117,7 +122,8 @@ let ssrConfig = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'DEVENV': JSON.stringify('ssr'),
+      'DEVENV': JSON.stringify(process.env.DEVENV || 'local'),
+      'RUNTIMEENV': JSON.stringify('server'),
     }),
     new WriteFilePlugin()
   ],

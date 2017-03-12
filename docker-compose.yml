@@ -21,6 +21,8 @@ services:
   nginx:
     build: ./build/docker/dev/nginx
     container_name: app-dev-nginx
+    environment:
+      - DEVENV=dev
     links:
       - dotnet
       - ui

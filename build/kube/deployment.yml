@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: dotvue-blog-alpha
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -11,19 +11,31 @@ spec:
     spec:
       containers:
       - name: nginx
+        imagePullPolicy: Always
         image: gcr.io/caleb-lloyd/dotvue-blog-nginx:1
+        env:
+        - name: DEVENV
+          value: alpha
         ports:
         - containerPort: 80
       - name: dotnet
+        imagePullPolicy: Always
         image: gcr.io/caleb-lloyd/dotvue-blog-dotnet:1
+        env:
+        - name: DEVENV
+          value: alpha
         ports:
         - containerPort: 5000
         volumeMounts:
-          name: dotvue-blog-db
+        - name: dotvue-blog-db
           mountPath: /etc/secrets/dotvue-blog-db
           readOnly: true
       - name: ui-ssr
+        imagePullPolicy: Always
         image: gcr.io/caleb-lloyd/dotvue-blog-ui-ssr:1
+        env:
+        - name: DEVENV
+          value: alpha
         ports:
         - containerPort: 4000
       volumes:

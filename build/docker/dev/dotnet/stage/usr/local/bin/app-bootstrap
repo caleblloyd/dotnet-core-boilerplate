@@ -16,9 +16,8 @@ if [ $? -ne 0 ]; then
 fi
 
 # remove all of the symlinks if any exist
-# remove all of the symlinks if any exist
 if [ -d /dotnet ]; then
-    find /dotnet -type l -maxdepth 1 | xargs rm
+    find /dotnet -type l -maxdepth 3 | xargs rm
 fi
 mkdir -p /dotnet
 chown "$USER_ID:$GROUP_ID" /dotnet

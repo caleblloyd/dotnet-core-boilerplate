@@ -1,20 +1,44 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: blog-alpha
+  name: dotvue-blog-alpha
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
-        app: blog-alpha
+        app: dotvue-blog-alpha
     spec:
       containers:
       - name: nginx
-        image: gcr.io/caleb-lloyd/blog-nginx:1
+        imagePullPolicy: Always
+        image: gcr.io/caleb-lloyd/dotvue-blog-nginx:1
+        env:
+        - name: DEVENV
+          value: alpha
         ports:
         - containerPort: 80
       - name: dotnet
-        image: gcr.io/caleb-lloyd/blog-dotnet:1
+        imagePullPolicy: Always
+        image: gcr.io/caleb-lloyd/dotvue-blog-dotnet:1
+        env:
+        - name: DEVENV
+          value: alpha
         ports:
         - containerPort: 5000
+        volumeMounts:
+        - name: dotvue-blog-db
+          mountPath: /etc/secrets/dotvue-blog-db
+          readOnly: true
+      - name: ui-ssr
+        imagePullPolicy: Always
+        image: gcr.io/caleb-lloyd/dotvue-blog-ui-ssr:1
+        env:
+        - name: DEVENV
+          value: alpha
+        ports:
+        - containerPort: 4000
+      volumes:
+      - name: dotvue-blog-db
+        secret:
+          secretName: dotvue-blog-db

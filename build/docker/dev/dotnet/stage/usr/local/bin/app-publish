@@ -3,7 +3,7 @@
 cd /dotnet/src/App
 USER_ID=$(ls -l | grep Common | awk '{print $3}')
 su $USER_ID -c 'dotnet publish -c Release; 
-    mv bin/Release/netcoreapp1.1/publish/ Common;
+    mv bin/Release/netcoreapp1.1.1/publish/ Common;
     mkdir -p Common/publish/src/App/Common/Config/;
     cp Common/Config/*.json Common/publish/src/App/Common/Config/;
     cp -r Data Common/publish/src/App/;'

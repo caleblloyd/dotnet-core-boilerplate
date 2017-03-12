@@ -43,6 +43,25 @@ namespace App.Config{
                 .AddJsonFile(Path.Combine("Common", "Config", $"config.{DevEnv}.json"), true)
                 .Build();
         });
+
+        public static string ConnectionString => LazyConnectionString.Value;
+
+        private static Lazy<string> LazyConnectionString = new Lazy<string>(() => {
+            var section = AppConfig.Config.GetSection("Data:MySql:Connection");
+            var connectionString = "";
+            foreach (var child in section.GetChildren()){
+                string key, value;
+                if (child.Key.EndsWith("_file")){
+                    key = child.Key.Substring(0, child.Key.Length - "_file".Length).TrimEnd();
+                    value = File.ReadAllText(child.Value);
+                } else {
+                    key = child.Key;
+                    value = child.Value;
+                }
+                connectionString += $"{key}={value};";
+            }
+            return connectionString;
+        });
         
     }
 }

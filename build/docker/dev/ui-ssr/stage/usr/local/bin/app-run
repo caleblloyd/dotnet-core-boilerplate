@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+
+cd /ui
+
+pid=0
+pid_zero=0
+script="dist-ssr/server.js"
+script_dir=$(dirname $script)
+last_dir_list=""
+
+while true    
+do
+    if [ -d $script_dir ]
+    then
+        dir_list=$(ls -le $script_dir)
+        if [ "$dir_list" != "$last_dir_list" ]
+        then    
+            if [ "$pid" -gt "$pid_zero" ] && [ -d "/proc/$pid" ]
+            then
+                kill $pid
+                wait $pid
+                pid=0
+            fi
+            if [ -f $script ]
+            then
+                node $script &
+                pid=$!
+            fi
+            last_dir_list=$dir_list
+        fi
+    fi
+    sleep 0.5
+done

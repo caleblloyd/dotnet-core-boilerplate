@@ -7,9 +7,9 @@ let config = {
 
 if (RUNTIMEENV == 'server'){
     if (DEVENV == 'alpha' || DEVENV == 'beta' || DEVENV == 'prod')
-        config.apiBase = 'http://localhost:8000'
+        config.apiBase = 'http://localhost:8001'
     else
-        config.apiBase = 'http://nginx:8000'
+        config.apiBase = 'http://nginx:8001'
 }
 
 export default config

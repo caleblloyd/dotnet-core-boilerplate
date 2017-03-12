@@ -4,6 +4,16 @@ var path = require('path');
 var webpack = require("webpack");
 
 let commonConfig = {
+  devtool: 'inline-source-map',
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    },
+    extensions: ['.ts', '.js']
+  }
+}
+
+let devConfig = {
   module: {
     rules: [
       {
@@ -16,20 +26,11 @@ let commonConfig = {
       }
     ],
   },
-  devtool: 'inline-source-map',
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    },
-    extensions: ['.ts', '.js']
-  }
-}
-
-let devConfig = {
   entry: {
     app: [
       'webpack-dev-server/client?/',
       'webpack/hot/only-dev-server',
+      'es6-shim',
       'whatwg-fetch',
       './src/index',
     ]
@@ -57,8 +58,21 @@ let devConfig = {
 }
 
 let prodConfig = {
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        loader: 'awesome-typescript-loader'
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
+      }
+    ],
+  },
   entry: {
     app: [
+      'es6-shim',
       'whatwg-fetch',
       './src/index',
     ]
@@ -81,6 +95,21 @@ let prodConfig = {
 }
 
 let ssrConfig = {
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        loader: 'awesome-typescript-loader',
+        options: {
+          configFileName: "tsconfig.ssr.json"
+        }
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
+      }
+    ],
+  },
   entry: {
     app: [
       './server'

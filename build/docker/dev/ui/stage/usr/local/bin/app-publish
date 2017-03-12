@@ -2,4 +2,4 @@
 
 cd /ui
 USER_ID=$(ls -l | grep src | awk '{print $3}')
-su $USER_ID -c 'vbuild src/index.js;'
+su $USER_ID -c 'yarn run build'

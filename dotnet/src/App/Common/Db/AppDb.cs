@@ -14,7 +14,7 @@ namespace App.Db{
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-            optionsBuilder.UseMySql(AppConfig.Config["Data:MySql:ConnectionString"],
+            optionsBuilder.UseMySql(AppConfig.ConnectionString,
                 options => options.MaxBatchSize(Convert.ToInt32(AppConfig.Config["Data:EntityFramework:MaxBatchSize"])));
 		    optionsBuilder.UseLoggerFactory(new LoggerFactory().AddConsole(AppConfig.Config.GetSection("Logging")));
 		}

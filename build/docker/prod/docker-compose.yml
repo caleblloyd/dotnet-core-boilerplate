@@ -3,7 +3,10 @@ version: "2"
 services:
   dotnet:
     build: ./dotnet
-    image: "gcr.io/caleb-lloyd/blog-dotnet:${TAG}"
+    image: "gcr.io/caleb-lloyd/dotvue-blog-dotnet:${TAG}"
   nginx:
     build: ./nginx
-    image: "gcr.io/caleb-lloyd/blog-nginx:${TAG}"
+    image: "gcr.io/caleb-lloyd/dotvue-blog-nginx:${TAG}"
+  ui-ssr:
+    build: ./ui-ssr
+    image: "gcr.io/caleb-lloyd/dotvue-blog-ui-ssr:${TAG}"

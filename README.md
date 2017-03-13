@@ -4,6 +4,7 @@
 master | develop
 --- | ---
 [![Build Status](https://travis-ci.org/caleblloyd/dotnet-core-boilerplate.svg?branch=master)](https://travis-ci.org/caleblloyd/dotnet-core-boilerplate) | [![Build Status](https://travis-ci.org/caleblloyd/dotnet-core-boilerplate.svg?branch=develop)](https://travis-ci.org/caleblloyd/dotnet-core-boilerplate)
+[Beta UI](https://blog-beta.dotvue.com/) | [Alpha UI](https://blog-alpha.dotvue.com/)
 
 A complete .NET Core development environment scaffolded using Docker Compose containing:
 

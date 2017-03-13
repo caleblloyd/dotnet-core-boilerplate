@@ -1,11 +1,13 @@
-declare const DEVENV: string
-declare const RUNTIMEENV: string
+declare const BUILD_DEVENV: string
+declare const RUNTIME_ENV: string
 
 let config = {
     apiBase: ''
 }
 
-if (RUNTIMEENV == 'server'){
+if (RUNTIME_ENV == 'server'){
+    const DEVENV = process.env.DEVENV
+
     if (DEVENV == 'alpha' || DEVENV == 'beta' || DEVENV == 'prod')
         config.apiBase = 'http://localhost:8001'
     else

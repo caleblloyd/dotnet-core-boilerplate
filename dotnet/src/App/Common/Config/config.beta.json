@@ -1,3 +1,15 @@
 {
-    
+    "Data": {
+        "MySql": {
+            "Connection": {
+                "host_file": "/etc/secrets/dotvue-blog-db/host",
+                "port_file": "/etc/secrets/dotvue-blog-db/port",
+                "user id_file": "/etc/secrets/dotvue-blog-db/user",
+                "password_file": "/etc/secrets/dotvue-blog-db/pass",
+                "database": "dotvue_blog_beta",
+                "ssl mode": "required",
+                "certificate file": "/etc/secrets/dotvue-blog-db/cert"
+            }
+        }
+    }
 }

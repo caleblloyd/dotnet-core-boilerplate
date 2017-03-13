@@ -1,6 +1,8 @@
 ﻿using System;
 using App.Cmd;
+using App.Db;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 
 namespace App
 {
@@ -11,6 +13,9 @@ namespace App
         {
             if (args.Length == 0)
             {
+                using (var db = new AppDb())
+                    db.Database.Migrate();
+
 	            var host = new WebHostBuilder()
                     .UseUrls("http://*:5000")
                     .UseKestrel()

@@ -39,8 +39,8 @@ let devConfig = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
-      'DEVENV': JSON.stringify(process.env.DEVENV || 'local'),
-      'RUNTIMEENV': JSON.stringify('browser'),
+      'BUILD_DEVENV': JSON.stringify(process.env.DEVENV || 'local'),
+      'RUNTIME_ENV': JSON.stringify('browser'),
     })
   ],
   output: {
@@ -88,8 +88,8 @@ let prodConfig = {
       to: path.resolve(__dirname, 'dist')
     }]),
     new webpack.DefinePlugin({
-      'DEVENV': JSON.stringify(process.env.DEVENV || 'local'),
-      'RUNTIMEENV': JSON.stringify('browser'),
+      'BUILD_DEVENV': JSON.stringify(process.env.DEVENV || 'local'),
+      'RUNTIME_ENV': JSON.stringify('browser'),
     })
   ],
   output: {
@@ -122,8 +122,8 @@ let ssrConfig = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'DEVENV': JSON.stringify(process.env.DEVENV || 'local'),
-      'RUNTIMEENV': JSON.stringify('server'),
+      'BUILD_DEVENV': JSON.stringify(process.env.DEVENV || 'local'),
+      'RUNTIME_ENV': JSON.stringify('server'),
     }),
     new WriteFilePlugin()
   ],

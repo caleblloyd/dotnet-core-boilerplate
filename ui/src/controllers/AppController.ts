@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Component from 'vue-class-component'
 import template from '../views/app/app.html'
 import Routes from '../config/Routes'
+import 'bootstrap/dist/css/bootstrap.css'
 
 // Register the router hooks with thier names for components
 Component.registerHooks([

@@ -1,7 +1,8 @@
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-var WriteFilePlugin = require('write-file-webpack-plugin')
-var path = require('path');
-var webpack = require("webpack");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const WriteFilePlugin = require('write-file-webpack-plugin')
+const path = require('path');
+const webpack = require("webpack");
 
 let commonConfig = {
   devtool: 'inline-source-map',
@@ -23,6 +24,13 @@ let devConfig = {
       {
         test: /\.html$/,
         loader: 'html-loader'
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
       }
     ],
   },
@@ -38,6 +46,7 @@ let devConfig = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    new ExtractTextPlugin("styles.css"),
     new webpack.DefinePlugin({
       'BUILD_DEVENV': JSON.stringify(process.env.DEVENV || 'local'),
       'RUNTIME_ENV': JSON.stringify('browser'),
@@ -71,6 +80,13 @@ let prodConfig = {
       {
         test: /\.html$/,
         loader: 'html-loader'
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
       }
     ],
   },
@@ -83,6 +99,7 @@ let prodConfig = {
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin(),
+    new ExtractTextPlugin("styles.css"),
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, 'src', 'public'),
       to: path.resolve(__dirname, 'dist')
@@ -112,6 +129,13 @@ let ssrConfig = {
       {
         test: /\.html$/,
         loader: 'html-loader'
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
       }
     ],
   },
@@ -125,7 +149,8 @@ let ssrConfig = {
       'BUILD_DEVENV': JSON.stringify(process.env.DEVENV || 'local'),
       'RUNTIME_ENV': JSON.stringify('server'),
     }),
-    new WriteFilePlugin()
+    new WriteFilePlugin(),
+    new ExtractTextPlugin("styles.css")
   ],
   output: {
     filename: 'server.js',

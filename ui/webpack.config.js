@@ -45,6 +45,45 @@ let browserRules = [
   }
 ]
 
+function HashReplace() {}
+HashReplace.prototype.apply = function(compiler) {
+  compiler.plugin('emit', function(compilation, callback) {
+
+    let replaceRegexes = new Map([
+      ['styles.css', /^styles\.[a-f0-9]+\.css$/],
+      ['bundle.js', /^bundle\.[a-f0-9]+\.js$/]
+    ])
+
+    if ('../index.html' in compilation.assets){
+      let replace = new Map();
+      replaceRegexes.forEach(function (regex, fileName){
+        compilation.chunks.forEach(function(chunk) {
+          chunk.files.forEach(function(emittedFileName) {
+            if (emittedFileName.match(regex)){
+              replace.set(fileName, emittedFileName)
+            }
+          })
+        })
+      })
+
+      let indexAsset = compilation.assets['../index.html']
+      let sourceFn = indexAsset.source;
+      let newSourceFn = () => {
+        let sourceStr = sourceFn().toString('utf8')
+        replace.forEach(function (emittedFileName, fileName){
+          sourceStr = sourceStr.replace(fileName, emittedFileName)
+        })
+        return Buffer.from(sourceStr, 'utf8')
+      }
+      indexAsset.source = newSourceFn
+      indexAsset.size = () => newSourceFn().length
+    }
+
+    callback()
+
+  })
+}
+
 let devConfig = {
   module: {
     rules: [
@@ -120,7 +159,7 @@ let prodConfig = {
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin(),
-    new ExtractTextPlugin("styles.css"),
+    new ExtractTextPlugin("styles.[contenthash].css"),
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, 'src', 'public'),
       to: path.resolve(__dirname, 'dist')
@@ -128,10 +167,11 @@ let prodConfig = {
     new webpack.DefinePlugin({
       'BUILD_DEVENV': JSON.stringify(process.env.DEVENV || 'local'),
       'RUNTIME_ENV': JSON.stringify('browser'),
-    })
+    }),
+    new HashReplace()
   ],
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.[chunkhash].js',
     publicPath: '/assets/',
     path: path.resolve(__dirname, 'dist', 'assets')
   }

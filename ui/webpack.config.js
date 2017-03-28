@@ -14,22 +14,48 @@ let commonConfig = {
   }
 }
 
+let browserRules = [
+  {
+    test: /\.ts$/,
+    loader: 'awesome-typescript-loader'
+  },
+  {
+    test: /\.html$/,
+    loader: 'html-loader'
+  },
+  {
+    test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+  },
+  {
+    test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+  },
+  {
+    test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
+  },
+  {
+    test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'file-loader'
+  },
+  {
+    test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+  }
+]
+
 let devConfig = {
   module: {
     rules: [
-      {
-        test: /\.ts$/,
-        loader: 'awesome-typescript-loader'
-      },
-      {
-        test: /\.html$/,
-        loader: 'html-loader'
-      },
+      ...browserRules,
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
+          fallback: 'style-loader',
+          use: [ 
+            { loader: 'css-loader' } 
+          ]
         })
       }
     ],
@@ -73,19 +99,14 @@ let devConfig = {
 let prodConfig = {
   module: {
     rules: [
-      {
-        test: /\.ts$/,
-        loader: 'awesome-typescript-loader'
-      },
-      {
-        test: /\.html$/,
-        loader: 'html-loader'
-      },
+      ...browserRules,
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
+          fallback: 'style-loader',
+          use: [ 
+            { loader: 'css-loader', options: { minimize: true } } 
+          ]
         })
       }
     ],
@@ -132,10 +153,7 @@ let ssrConfig = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
-        })
+        loader: 'null-loader'
       }
     ],
   },
@@ -149,8 +167,7 @@ let ssrConfig = {
       'BUILD_DEVENV': JSON.stringify(process.env.DEVENV || 'local'),
       'RUNTIME_ENV': JSON.stringify('server'),
     }),
-    new WriteFilePlugin(),
-    new ExtractTextPlugin("styles.css")
+    new WriteFilePlugin()
   ],
   output: {
     filename: 'server.js',

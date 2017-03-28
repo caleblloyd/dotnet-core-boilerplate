@@ -39,6 +39,7 @@ rm -rf nginx/stage/var/www/*
 cp -r ../../../ui/dist/* nginx/stage/var/www
 rm -rf ui-ssr/stage/ui/*
 cp -r ../../../ui/dist-ssr/* ui-ssr/stage/ui
+cp ../../../ui/dist/index.html ui-ssr/stage/ui
 
 # build images
 echo "Building Images"

@@ -1,6 +1,14 @@
-import layout from './src/public/index.html'
+import indexContents from './src/public/index.html'
 import App from './src/controllers/AppController'
 import express from 'express'
+import * as fs from "fs";
+import * as path from "path";
+
+let layout = indexContents
+let layoutFile = path.normalize('/ui/index.html')
+if (fs.existsSync(layoutFile)){
+  layout = fs.readFileSync(layoutFile, 'utf8')
+}
 
 let renderer = require('vue-server-renderer').createRenderer()
 

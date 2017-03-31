@@ -10,11 +10,11 @@ using Xunit;
 
 namespace App.Functional.Api.Controllers{
 
-    public class MyDatabaseTests : IClassFixture<ControllerFixture>
+    public class AuthorsControllerTest : IClassFixture<ControllerFixture>
     {
         ControllerFixture _fixture;
 
-        public MyDatabaseTests(ControllerFixture fixture)
+        public AuthorsControllerTest(ControllerFixture fixture)
         {
             _fixture = fixture;
         }

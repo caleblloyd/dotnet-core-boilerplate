@@ -22,7 +22,7 @@ namespace App.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> ListAsync()
         {
-			return new ObjectResult(await _db.Posts.Include(m => m.Author).OrderByDescending(m => m.Id).ToListAsync());
+			return new OkObjectResult(await _db.Posts.Include(m => m.Author).OrderByDescending(m => m.Id).ToListAsync());
         }
 
         // GET api/posts/5
@@ -32,25 +32,25 @@ namespace App.Api.Controllers
 			var model = await _db.Posts.Include(m => m.Author).FirstOrDefaultAsync(m => m.Id == id);
 			if (model != null)
 			{
-				return new ObjectResult(model);
+				return new OkObjectResult(model);
 			}
 			return NotFound();
         }
 
         // POST api/posts
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Post body)
+        public async Task<IActionResult> CreateAsync([FromBody] Post body)
         {
 			var sanitizer = new HtmlSanitizer();
 			body.Content = sanitizer.Sanitize(body.Content);
 	        _db.Posts.Add(body);
 			await _db.SaveChangesAsync();
-			return new ObjectResult(body);
+			return new OkObjectResult(body);
         }
 
         // PUT api/posts/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Post body)
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] Post body)
         {
 			var model = await _db.Posts.FindAsync(id);
 			if (model != null)
@@ -60,14 +60,14 @@ namespace App.Api.Controllers
 				model.Content = sanitizer.Sanitize(body.Content);
 				model.AuthorId = body.AuthorId;
 				await _db.SaveChangesAsync();
-				return new ObjectResult(model);
+				return new OkObjectResult(model);
 			}
 			return NotFound();
         }
 
         // DELETE api/posts/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
 			var model = await _db.Posts.FindAsync(id);
 			if (model != null)

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Api.Models {
 
@@ -22,7 +23,10 @@ namespace App.Api.Models {
     
     public class Author
     {
+        [Key]
         public int Id { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         public List<Post> Posts { get; set; }

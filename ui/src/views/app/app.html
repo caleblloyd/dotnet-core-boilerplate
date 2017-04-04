@@ -1,9 +1,33 @@
 <div id="app">
-    <h1>Basic</h1>
-    <ul>
-        <li><router-link to="/">/</router-link></li>
-        <li><router-link to="/author">/author</router-link></li>
-        <li><router-link to="/authors">/authors</router-link></li>
-    </ul>
-    <router-view class="view"></router-view>
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills float-right">
+                    <li>
+                        <router-link class="nav-link" active-class="active" exact to="/">Home</router-link>
+                    </li>
+                    <li>
+                        <router-link class="nav-link" active-class="active" to="/author">Author</router-link>
+                    </li>
+                    <li>
+                        <router-link class="nav-link" active-class="active" to="/authors">Authors</router-link>
+                    </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Dotvue Blog</h3>
+        </div>
+
+        <router-view class="view"></router-view>
+
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+        <div class="row">
+            <div id="footerContent" class="col-sm-12">
+            Free and open source under the <a href="https://github.com/caleblloyd/dotnet-core-boilerplate/blob/develop/LICENSE">MIT License</a>
+            </div>
+        </div>
+        </div>
+    </footer>
 </div>

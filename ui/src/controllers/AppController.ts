@@ -6,7 +6,9 @@ import Routes from '../config/Routes'
 
 // vendor css
 import 'bootstrap/dist/css/bootstrap.css'
-import 'font-awesome/css/font-awesome.css';
+import 'font-awesome/css/font-awesome.css'
+// app css
+import '../styles/main.css'
 
 // Register the router hooks with thier names for components
 Component.registerHooks([

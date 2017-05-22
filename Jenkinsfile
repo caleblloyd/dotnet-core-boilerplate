@@ -1,18 +1,20 @@
 pipeline {
   agent any
-  stages {
-    stage('Test') {
-      steps {
-        sh '''#!/bin/bash
+  wrap([$class: 'HelloWorldBuilder']) {
+    stages {
+      stage('Test') {
+        steps {
+          sh '''#!/bin/bash
 
-./.ci/test.sh'''
+  ./.ci/test.sh'''
+        }
       }
-    }
-    stage('Publish') {
-      steps {
-        sh '''#!/bin/bash
+      stage('Publish') {
+        steps {
+          sh '''#!/bin/bash
 
-./.ci/publish.sh'''
+  ./.ci/publish.sh'''
+        }
       }
     }
   }

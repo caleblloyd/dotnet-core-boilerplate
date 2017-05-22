@@ -10,9 +10,11 @@ pipeline {
         }
         stage('Publish') {
             steps {
-                sh '''#!/bin/bash
+                wrap([$class: 'HelloWorldWrapper']) {
+                    sh '''#!/bin/bash
 
-                ./.ci/publish.sh'''
+                    ./.ci/publish.sh'''
+                }
             }
         }
     } 

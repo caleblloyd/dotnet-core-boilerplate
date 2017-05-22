@@ -4,14 +4,18 @@ pipeline {
         stage('Test') {
             steps {
                 wrap([$class: 'org.boxboat.plugins.lxd.HelloWorldWrapper']) {
-                    sh '''cat /tmp/jenkins'''
+                    sh '''
+                    ls /tmp
+                    cat /tmp/jenkins'''
                 }
             }
         }
         stage('Publish') {
             steps {
                 wrap([$class: 'org.boxboat.plugins.lxd.HelloWorldWrapper']) {
-                    sh '''cat /tmp/jenkins'''
+                    sh '''
+                    ls /tmp
+                    cat /tmp/jenkins'''
                 }
             }
         }

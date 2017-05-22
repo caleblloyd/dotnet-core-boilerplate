@@ -3,19 +3,19 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                wrap([$class: 'org.boxboat.plugins.lxd.HelloWorldWrapper']) {
-                    sh '''#!/bin/bash
-
-                    echo "test"'''
+                node {
+                    wrap([$class: 'org.boxboat.plugins.lxd.HelloWorldWrapper']) {
+                        sh '''cat /tmp/jenkins'''
+                    }
                 }
             }
         }
         stage('Publish') {
             steps {
-                wrap([$class: 'org.boxboat.plugins.lxd.HelloWorldWrapper']) {
-                    sh '''#!/bin/bash
-
-                    echo "publish"'''
+                node {
+                    wrap([$class: 'org.boxboat.plugins.lxd.HelloWorldWrapper']) {
+                        sh '''cat /tmp/jenkins'''
+                    }
                 }
             }
         }

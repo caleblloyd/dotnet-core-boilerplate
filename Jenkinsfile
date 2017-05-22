@@ -1,7 +1,7 @@
 pipeline {
     agent any
-    stages {
-        wrap([$class: 'org.boxboat.plugins.lxd.HelloWorldWrapper']) {
+    wrap([$class: 'org.boxboat.plugins.lxd.HelloWorldWrapper']) {
+        stages {
             stage('Test') {
                 steps {
                     sh '''#!/bin/bash

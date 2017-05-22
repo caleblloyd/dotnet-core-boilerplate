@@ -3,9 +3,11 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh '''#!/bin/bash
+                wrap([$class: 'HelloWorldWrapper']) {
+                    sh '''#!/bin/bash
 
-                ./.ci/test.sh'''
+                    echo "test"'''
+                }
             }
         }
         stage('Publish') {
@@ -13,7 +15,7 @@ pipeline {
                 wrap([$class: 'HelloWorldWrapper']) {
                     sh '''#!/bin/bash
 
-                    ./.ci/publish.sh'''
+                    echo "publish"'''
                 }
             }
         }

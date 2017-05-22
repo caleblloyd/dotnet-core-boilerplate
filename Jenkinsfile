@@ -1,7 +1,7 @@
 pipeline {
   agent any
-  wrap([$class: 'HelloWorldBuilder']) {
-    stages {
+  stages {
+    wrap([$class: 'HelloWorldBuilder']) {
       stage('Test') {
         steps {
           sh '''#!/bin/bash

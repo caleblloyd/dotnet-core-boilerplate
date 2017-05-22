@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                wrap([$class: 'HelloWorldWrapper']) {
+                wrap([$class: 'org.boxboat.plugins.lxd.HelloWorldWrapper']) {
                     sh '''#!/bin/bash
 
                     echo "test"'''
@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Publish') {
             steps {
-                wrap([$class: 'HelloWorldWrapper']) {
+                wrap([$class: 'org.boxboat.plugins.lxd.HelloWorldWrapper']) {
                     sh '''#!/bin/bash
 
                     echo "publish"'''

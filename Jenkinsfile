@@ -1,16 +1,18 @@
-wrap([$class: 'org.boxboat.plugins.lxd.HelloWorldWrapper']) {
-    pipeline {
-        agent any
-        stages {
-            stage('Test') {
-                steps {
+pipeline {
+    agent any
+    stages {
+        stage('Test') {
+            steps {
+                wrap([$class: 'org.boxboat.plugins.lxd.HelloWorldWrapper']) {
                     sh '''#!/bin/bash
 
                     echo "test"'''
                 }
             }
-            stage('Publish') {
-                steps {
+        }
+        stage('Publish') {
+            steps {
+                wrap([$class: 'org.boxboat.plugins.lxd.HelloWorldWrapper']) {
                     sh '''#!/bin/bash
 
                     echo "publish"'''

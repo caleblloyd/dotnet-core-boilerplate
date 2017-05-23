@@ -1,27 +1,19 @@
 pipeline {
   agent {
-    docker {
-      image 'alpine'
+    node {
+      label 'docker'
     }
     
   }
   stages {
     stage('Test') {
       steps {
-        node(label: 'docker') {
-          sh '''ls /tmp
-echo "test"'''
-        }
-        
+        sh 'docker run --rm docker/whalesay cowsay test'
       }
     }
     stage('Publish') {
       steps {
-        node(label: 'docker') {
-          sh '''ls /tmp
-echo "publish"'''
-        }
-        
+        sh 'docker run --rm docker/whalesay cowsay publish'
       }
     }
   }

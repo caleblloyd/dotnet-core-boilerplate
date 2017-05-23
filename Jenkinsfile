@@ -8,9 +8,9 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        sh '''
-                    ls /tmp
-                    cat /tmp/jenkins'''
+        sh '''ls /tmp
+echo "test"
+'''
       }
     }
     stage('Publish') {

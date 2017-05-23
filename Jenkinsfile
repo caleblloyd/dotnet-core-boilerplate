@@ -6,29 +6,18 @@ pipeline {
     
   }
   stages {
-    stage('Test1') {
-      steps {
-        parallel(
-          "Test1": {
-            sh '''hostname
-date
-docker run --rm docker/whalesay cowsay test1'''
-            
-          },
-          "Test2": {
-            sh '''hostname
-date
-docker run --rm docker/whalesay cowsay test2'''
-            
-          }
-        )
-      }
-    }
-    stage('Publish') {
+    stage('Start') {
       steps {
         sh '''hostname
 date
-docker run --rm docker/whalesay cowsay publish'''
+./.ci/docker-up.sh'''
+      }
+    }
+    stage('Test') {
+      steps {
+        sh '''hostname
+date
+./.ci/test.sh'''
       }
     }
   }

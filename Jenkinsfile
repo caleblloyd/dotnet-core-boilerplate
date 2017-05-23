@@ -8,16 +8,20 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        sh '''ls /tmp
-echo "test"
-'''
+        node(label: 'docker') {
+          sh '''ls /tmp
+echo "test"'''
+        }
+        
       }
     }
     stage('Publish') {
       steps {
-        sh '''
-                    ls /tmp
-                    cat /tmp/jenkins'''
+        node(label: 'docker') {
+          sh '''ls /tmp
+echo "publish"'''
+        }
+        
       }
     }
   }

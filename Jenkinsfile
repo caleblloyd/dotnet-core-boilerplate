@@ -8,12 +8,14 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        sh 'docker run --rm docker/whalesay cowsay test'
+        sh '''hostname
+docker run --rm docker/whalesay cowsay test'''
       }
     }
     stage('Publish') {
       steps {
-        sh 'docker run --rm docker/whalesay cowsay publish'
+        sh '''hostname
+docker run --rm docker/whalesay cowsay publish'''
       }
     }
   }

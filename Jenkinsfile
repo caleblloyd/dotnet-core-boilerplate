@@ -6,10 +6,20 @@ pipeline {
     
   }
   stages {
-    stage('Test') {
+    stage('Test1') {
       steps {
-        sh '''hostname
-docker run --rm docker/whalesay cowsay test'''
+        parallel(
+          "Test1": {
+            sh '''hostname
+docker run --rm docker/whalesay cowsay test1'''
+            
+          },
+          "Test2": {
+            sh '''hostname
+docker run --rm docker/whalesay cowsay test2'''
+            
+          }
+        )
       }
     }
     stage('Publish') {

@@ -7,17 +7,9 @@ date
 ./.ci/docker-up.sh'''
       }
     stage('Test'){
-      parallel(
-        node {
-          sh '''hostname
-date
-./.ci/test-unit.sh'''
-        },
-        node {
-          sh '''hostname
-date
-./.ci/test-functional.sh'''              
-        }
+      parallel (
+        unit: { sh '''echo unit''' },
+        funcional: { sh '''echo funcional''' }
       )
     }
     stage('Publish') {

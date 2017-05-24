@@ -1,9 +1,19 @@
 node {
   label 'docker'
   wrap([$class: 'AnsiColorBuildWrapper']) {
-    stage('Example') {
-      sh '''hostname
-  date'''
+  stage('Setup') {
+      steps {  
+        sh '''hostname
+date
+./.ci/docker-up.sh'''
+      }
+    }
+    stage('Publish') {
+      steps {
+        sh '''hostname
+date
+echo "publish"'''
+      }
     }
   }
 }

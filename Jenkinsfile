@@ -12,12 +12,14 @@ date
           sh '''hostname
 date
 ls -al
+ls -al .ci
 ./.ci/test-unit.sh'''
         },
         "funcional": {
           sh '''hostname
 date
 ls -al
+ls -al .ci
 ./.ci/test-functional.sh'''
         }
       )

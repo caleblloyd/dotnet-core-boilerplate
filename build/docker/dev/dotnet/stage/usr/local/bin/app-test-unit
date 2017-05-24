@@ -5,5 +5,3 @@ set -e
 cd /dotnet/tests/App.Unit
 USER_ID=$(ls -l | grep Common | awk '{print $3}')
 su $USER_ID -c 'dotnet test -c Release'
-cd ../App.Functional
-su $USER_ID -c 'dotnet test -c Release'

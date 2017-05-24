@@ -5,3 +5,4 @@ set -e
 cd /dotnet/tests/App.Functional
 USER_ID=$(ls -l | grep Common | awk '{print $3}')
 su $USER_ID -c 'dotnet test -c Release'
+exit 1

@@ -1,5 +1,4 @@
-node {
-  label 'docker'
+node('docker') {
   wrap([$class: 'AnsiColorBuildWrapper']) {
     stage('Setup') {
         checkout scm

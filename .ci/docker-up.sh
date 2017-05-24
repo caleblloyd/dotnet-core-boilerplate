@@ -2,7 +2,7 @@
 cd $(dirname $0)
 cd ../
 
-docker-compose up &
+docker-compose up --build &
 
 for i in `seq 1 600`; do
 	# wait for dotnet to come up

@@ -1,8 +1,8 @@
 node {
   label 'docker'
-  checkout scm
   wrap([$class: 'AnsiColorBuildWrapper']) {
     stage('Setup') {
+        checkout scm
         sh '''hostname
 date
 ./.ci/docker-up.sh'''

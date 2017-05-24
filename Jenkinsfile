@@ -4,40 +4,33 @@ node('docker') {
       stage('Setup') {
           checkout scm
           sh '''hostname
-  date
-  ./.ci/docker-up.sh'''
+date
+./.ci/docker-up.sh'''
         }
       stage('Test'){
         parallel (
           "unit": {
             sh '''hostname
-  date
-  ls -al
-  ls -al .ci
-  ./.ci/test-unit.sh'''
+date
+./.ci/test-unit.sh'''
           },
           "funcional": {
             sh '''hostname
-  date
-  ls -al
-  ls -al .ci
-  ./.ci/test-functional.sh'''
+date
+./.ci/test-functional.sh'''
           }
         )
       }
       stage('Publish') {
         sh '''hostname
-  date
-  echo "publish"'''
+date
+echo "publish"'''
       }
     }
   }
   finally {
-    stage('Cleanup') {
-      checkout scm
-      sh '''hostname
-  date
-  ./.ci/docker-down.sh'''
-    }
+    sh '''hostname
+date
+./.ci/docker-down.sh'''
   }
 }

@@ -1,37 +1,35 @@
 pipeline {
-  agent {
+  stages {
     node {
       label 'docker'
-    }
-  }
-  stages {
-    stage('Test') {
-      steps {
-        wrap([$class: 'AnsiColorBuildWrapper']) {
-          sh '''hostname
-date
-./.ci/docker-up.sh'''
+      wrap([$class: 'AnsiColorBuildWrapper']) {
+        stage('Setup') {
+          steps {  
+            sh '''hostname
+    date
+    ./.ci/docker-up.sh'''
+          }
+        }
+        stage('Test'){
           parallel(
             "Unit": {
               sh '''hostname
-date
-./.ci/test-unit.sh'''
+    date
+    ./.ci/test-unit.sh'''
             },
             "Functional": {
               sh '''hostname
-date
-./.ci/test-functional.sh'''              
+    date
+    ./.ci/test-functional.sh'''              
             }
           )
         }
-      }
-    }
-    stage('Publish') {
-      steps {
-        wrap([$class: 'AnsiColorBuildWrapper']) {
-          sh '''hostname
-  date
-  echo "publish"'''
+        stage('Publish') {
+          steps {
+            sh '''hostname
+    date
+    echo "publish"'''
+          }
         }
       }
     }

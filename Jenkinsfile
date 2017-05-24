@@ -8,8 +8,16 @@ date
       }
     stage('Test'){
       parallel (
-        "unit": { sh '''echo unit''' },
-        "funcional": { sh '''echo funcional''' }
+        "unit": {
+          sh '''hostname
+date
+./.ci/test-unit.sh'''
+        },
+        "funcional": {
+          sh '''hostname
+date
+./.ci/test-functional.sh'''
+        }
       )
     }
     stage('Publish') {

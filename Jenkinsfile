@@ -1,33 +1,43 @@
 node('docker') {
-  wrap([$class: 'AnsiColorBuildWrapper']) {
-    stage('Setup') {
-        checkout scm
-        sh '''hostname
-date
-./.ci/docker-up.sh'''
-      }
-    stage('Test'){
-      parallel (
-        "unit": {
+  try{
+    wrap([$class: 'AnsiColorBuildWrapper']) {
+      stage('Setup') {
+          checkout scm
           sh '''hostname
-date
-ls -al
-ls -al .ci
-./.ci/test-unit.sh'''
-        },
-        "funcional": {
-          sh '''hostname
-date
-ls -al
-ls -al .ci
-./.ci/test-functional.sh'''
+  date
+  ./.ci/docker-up.sh'''
         }
-      )
+      stage('Test'){
+        parallel (
+          "unit": {
+            sh '''hostname
+  date
+  ls -al
+  ls -al .ci
+  ./.ci/test-unit.sh'''
+          },
+          "funcional": {
+            sh '''hostname
+  date
+  ls -al
+  ls -al .ci
+  ./.ci/test-functional.sh'''
+          }
+        )
+      }
+      stage('Publish') {
+        sh '''hostname
+  date
+  echo "publish"'''
+      }
     }
-    stage('Publish') {
+  }
+  finally {
+    stage('Cleanup') {
+      checkout scm
       sh '''hostname
-date
-echo "publish"'''
+  date
+  ./.ci/docker-down.sh'''
     }
   }
 }

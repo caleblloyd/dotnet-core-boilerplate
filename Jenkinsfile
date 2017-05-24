@@ -5,16 +5,18 @@ pipeline {
     }
   }
   stages {
-    wrap([$class: 'AnsiColorBuildWrapper']) {
-      stage('Start') {
-        steps {
+    stage('Start') {
+      steps {
+        wrap([$class: 'AnsiColorBuildWrapper']) {
           sh '''hostname
   date
   ./.ci/docker-up.sh'''
         }
       }
-      stage('Test') {
-        steps {
+    }
+    stage('Test') {
+      steps {
+        wrap([$class: 'AnsiColorBuildWrapper']) {
           sh '''hostname
   date
   ./.ci/test.sh'''

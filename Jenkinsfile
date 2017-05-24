@@ -8,12 +8,12 @@ date
       }
     stage('Test'){
       parallel(
-        "Unit": {
+        stage('Unit'){
           sh '''hostname
 date
 ./.ci/test-unit.sh'''
         },
-        "Functional": {
+        stage('Functional'){
           sh '''hostname
 date
 ./.ci/test-functional.sh'''              
@@ -24,6 +24,6 @@ date
       sh '''hostname
 date
 echo "publish"'''
-      }
     }
+  }
 }

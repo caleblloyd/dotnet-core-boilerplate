@@ -1,7 +1,9 @@
 node {
   label 'docker'
-  stage('Example') {
-    sh '''hostname
-date'''
+  wrap([$class: 'AnsiColorBuildWrapper']) {
+    stage('Example') {
+      sh '''hostname
+  date'''
+    }
   }
 }

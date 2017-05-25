@@ -1,7 +1,7 @@
 throttle(['throttleDocker']){
   node('docker') {
     try{
-      wrap([$class: 'AnsiColorBuildWrapper']) {
+      wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
         stage('Setup') {
             checkout scm
             sh '''hostname

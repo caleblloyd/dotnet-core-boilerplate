@@ -2,6 +2,7 @@
 
 set -e
 
+echo "fork"
 sleep 10
 
 cd /dotnet/tests/App.Functional

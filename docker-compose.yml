@@ -9,6 +9,7 @@ services:
       - DEVENV=dev
     volumes:
       - ./ui:/ui
+      - ${HOME}/.cache/yarn:/home/user/.cache/yarn
 
   ui-ssr:
     build: ./build/docker/dev/ui-ssr
@@ -44,6 +45,7 @@ services:
       - "48010:5000"
     volumes:
       - ./dotnet:/mnt/dotnet
+      - ${HOME}/.nuget:/home/user/.nuget
 
   db:
     image: mysql:5.7.17

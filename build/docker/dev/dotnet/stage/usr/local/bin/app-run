@@ -7,6 +7,9 @@ find * -maxdepth 0 -name "*.sln" | \
 find * -mindepth 2 -maxdepth 2 ! -name "bin" ! -name "obj" | \
     xargs -I % sh -c 'mkdir -p "/dotnet/$(dirname %)"; ln -s "/mnt/dotnet/%" "/dotnet/%";'
 
+rm -f $HOME/.nuget
+ln -s /home/user/.nuget $HOME/.nuget
+
 # restore
 cd /dotnet
 dotnet restore

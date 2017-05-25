@@ -1,5 +1,9 @@
 #!/usr/bin/env sh
 
+mkdir -p $HOME/.cache
+rm -f $HOME/.cache/yarn
+ln -s /home/user/.cache/yarn $HOME/.cache/yarn
+
 cd /ui
 yarn install --no-bin-links
 yarn run start

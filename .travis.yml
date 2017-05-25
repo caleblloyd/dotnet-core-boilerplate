@@ -21,8 +21,8 @@ before_install:
 script:
   - ./.ci/test.sh
 
-after_script:
-  - ./.ci/publish-ci.sh
+# after_script:
+#   - ./.ci/publish-ci.sh
 
 notifications:
   email: false

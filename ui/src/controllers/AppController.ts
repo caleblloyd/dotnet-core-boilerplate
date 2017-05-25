@@ -43,6 +43,7 @@ export default class App{
         this.initLoad = new Promise((resolve) => {
             router.onReady(() => {
                 console.log("resolve")
+                
                 resolve()
             })
         })

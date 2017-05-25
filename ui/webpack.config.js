@@ -4,16 +4,6 @@ const WriteFilePlugin = require('write-file-webpack-plugin')
 const path = require('path');
 const webpack = require("webpack");
 
-let commonConfig = {
-  devtool: 'inline-source-map',
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
-    },
-    extensions: ['.ts', '.js']
-  }
-}
-
 let browserRules = [
   {
     test: /\.ts$/,
@@ -85,6 +75,13 @@ HashReplace.prototype.apply = function(compiler) {
 }
 
 let devConfig = {
+  devtool: 'inline-source-map',
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    },
+    extensions: ['.ts', '.js']
+  },
   module: {
     rules: [
       ...browserRules,
@@ -124,6 +121,7 @@ let devConfig = {
   devServer: {
     host: '0.0.0.0',
     port: 3000,
+    disableHostCheck: true,
     historyApiFallback: true,
     inline: false,
     hot: true,
@@ -136,6 +134,13 @@ let devConfig = {
 }
 
 let prodConfig = {
+  devtool: 'inline-source-map',
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    },
+    extensions: ['.ts', '.js']
+  },
   module: {
     rules: [
       ...browserRules,
@@ -178,6 +183,13 @@ let prodConfig = {
 }
 
 let ssrConfig = {
+  devtool: 'inline-source-map',
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    },
+    extensions: ['.ts', '.js']
+  },
   module: {
     rules: [
       {
@@ -203,6 +215,7 @@ let ssrConfig = {
     ]
   },
   plugins: [
+    new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       'BUILD_DEVENV': JSON.stringify(process.env.DEVENV || 'local'),
       'RUNTIME_ENV': JSON.stringify('server'),
@@ -221,12 +234,12 @@ let ssrConfig = {
 
 if (process.env.NODE_ENV === 'production') {
   module.exports = [
-    Object.assign({}, commonConfig, prodConfig),
-    Object.assign({}, commonConfig, ssrConfig)
+    prodConfig,
+    ssrConfig
   ]
 } else {
   module.exports = [
-    Object.assign({}, commonConfig, devConfig),
-    Object.assign({}, commonConfig, ssrConfig)
+    devConfig,
+    ssrConfig
   ]
 }

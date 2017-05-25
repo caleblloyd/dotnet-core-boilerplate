@@ -13,6 +13,7 @@ throttle(['throttleDocker']){
             "unit": {
               sh '''hostname
   date
+  echo "fork"
   ./.ci/test-unit.sh'''
             },
             "funcional": {

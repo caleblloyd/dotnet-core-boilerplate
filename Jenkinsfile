@@ -8,21 +8,7 @@ throttle(['throttleDocker']){
   date
   ./.ci/docker-up.sh'''
           }
-        stage('Test'){
-          parallel (
-            "unit": {
-              sh '''hostname
-  date
-  echo "fork"
-  ./.ci/test-unit.sh'''
-            },
-            "funcional": {
-              sh '''hostname
-  date
-  ./.ci/test-functional.sh'''
-            }
-          )
-        }
+        
         stage('Publish') {
           sh '''hostname
   date

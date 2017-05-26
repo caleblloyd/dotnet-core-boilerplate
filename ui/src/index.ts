@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import App from './controllers/AppController'
+import newApp from './controllers/AppController'
 
 async function runApp(){
-    let app = new App()
+    let app = newApp()
     await app.initLoad
     app.vueComponent.$mount('#app')
 }

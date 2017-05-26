@@ -12,6 +12,7 @@ function makeLazyLoad(controller: string, component: string){
 
 const routes: RouteConfig[] = [
     { path: '/', name: 'posts', component: makeLazyLoad('PostsController', 'List') },
+    { path: '/post', name: 'post', component: makeLazyLoad('PostsController', 'View') },
     { path: '/authors', name: 'authors', component: makeLazyLoad('AuthorsController', 'List') },
     { path: '/author', name: 'author', component: makeLazyLoad('AuthorsController', 'View') },
 ]

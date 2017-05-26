@@ -102,10 +102,16 @@ let devConfig = {
       'webpack/hot/only-dev-server',
       'es6-shim',
       'whatwg-fetch',
+      'bootstrap/dist/js/bootstrap',
       './src/index',
     ]
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      Tether: 'tether'
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new ExtractTextPlugin("styles.css"),
@@ -159,11 +165,17 @@ let prodConfig = {
     app: [
       'es6-shim',
       'whatwg-fetch',
+      'bootstrap/dist/js/bootstrap',
       './src/index',
     ]
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin(),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      Tether: 'tether'
+    }),
     new ExtractTextPlugin("styles.[contenthash].css"),
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, 'src', 'public'),

@@ -1,8 +1,8 @@
 import indexContents from './src/public/index.html'
-import App from './src/controllers/AppController'
+import newApp from './src/controllers/AppController'
 import express from 'express'
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from "fs"
+import * as path from "path"
 
 let layout = indexContents
 let layoutFile = path.normalize('/ui/index.html')
@@ -29,20 +29,19 @@ server.get('*', async (request: express.Request, response: express.Response) => 
     modLayout = layout.replace('<script src="assets/bundle.js"></script>', '')
   }
   
-  let app = new App(request.url);
-  await app.initLoad;
+let app = newApp(request.url);
+await app.initLoad;
 
-  renderer.renderToString(
-    app.vueComponent,
-    function (error:any, html:any) {
-      if (error) {
-        console.error(error)
-        return response
-          .status(500)
-          .send('Server Error')
-      }
-      response.send(modLayout.replace('<div id="app"></div>', html))
-    })
+  renderer.renderToString(app.vueComponent, (error:any, html:any) => {
+    if (error) {
+      console.error(error)
+      return response
+        .status(500)
+        .send('Server Error')
+    }
+    modLayout = layout.replace('<!--DOTVUE_INITIAL_DATA-->', '<script>window.DotvueInitialData = ' + JSON.stringify(app.ssrData) + '</script>')
+    response.send(modLayout.replace('<div id="app"></div>', html))
+  })
 
 })
 

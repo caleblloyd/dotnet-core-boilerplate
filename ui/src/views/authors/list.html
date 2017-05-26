@@ -1,3 +1,19 @@
-<div id="authors">
-    authors
+<div>
+
+    <div class="row">
+        <div class="col">
+            <h1><i class="fa fa-users"></i> Authors</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div v-for="author of authors">
+                <div>
+                    <p><strong>Name</strong>: {{ author.name }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

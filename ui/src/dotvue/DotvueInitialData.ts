@@ -1,31 +1,44 @@
-declare const window:any;
+import Vue from 'vue'
+import {Route} from 'vue-router'
+import DotvueApp, {routeInitialDataMap} from './DotvueApp'
 
-let ssrWindowData = new Array();
+declare const window:any;
+let ssrWindowData: {[key:string]:any} = {}
+
 if (typeof(window) !== 'undefined' && window.DotvueInitialData){
     ssrWindowData = window.DotvueInitialData
     delete window.DotvueInitialData
 }
 
-export let ssrData = new Array()
+export default class DotvueInitialData<T>{
 
-export default class DotvueInitialData{
+    key: string
 
-    data: any;
+    data: T
 
-    Get () {
-        return this.data;
+    constructor(to: Route, key: string){
+        this.key = key
+        routeInitialDataMap.set(to, this)
     }
 
-    async Set (promise: Promise<any>) {
-        ssrData.push(null)
-        let ssrDataIndex = ssrData.length - 1
+    public async Set(promiseFn: () => Promise<T>){
+        if (ssrWindowData[this.key]){
+            this.data = ssrWindowData[this.key]
+            delete ssrWindowData[this.key]
+        } else {
+            this.data = await promiseFn()
+        }
+    }
 
-        if (ssrWindowData.length > 0)
-            this.data = ssrWindowData.shift()
-        else
-            this.data = await promise;
-
-        ssrData[ssrDataIndex] = this.data
+    public static Get<T>(vm: Vue, key: string) : T {
+        let dotvueApp = ((vm.$root as any).dotvueApp as DotvueApp)
+        let initialData = dotvueApp.initialData.get(key)
+        if (initialData){
+            dotvueApp.initialData.delete(key)
+            dotvueApp.ssrData[key] = initialData.data
+            return initialData.data
+        }
+        return null;
     }
 
 }

@@ -1,24 +1,34 @@
 <div id="app">
     <div class="container">
-        <div class="header clearfix">
-            <nav>
-                <ul class="nav nav-pills float-right">
-                    <li>
-                        <router-link class="nav-link" active-class="active" exact to="/">Home</router-link>
-                    </li>
-                    <li>
-                        <router-link class="nav-link" active-class="active" to="/author">Author</router-link>
-                    </li>
-                    <li>
-                        <router-link class="nav-link" active-class="active" to="/authors">Authors</router-link>
-                    </li>
-                </ul>
-            </nav>
-            <h3 class="text-muted">Dotvue Blog</h3>
+
+        <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <router-link class="navbar-brand" exact to="/">
+            Dotvue Blog
+        </router-link>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="mr-auto"></div>
+            <ul class="navbar-nav">
+                <router-link tag="li" class="nav-item" active-class="active" exact to="/">
+                    <a class="nav-link">Posts</a>
+                </router-link>
+                <router-link tag="li" class="nav-item" active-class="active" to="/post">
+                    <a class="nav-link">Post</a>
+                </router-link>
+                <router-link tag="li" class="nav-item" active-class="active" to="/authors">
+                    <a class="nav-link">Authors</a>
+                </router-link>
+                <router-link tag="li" class="nav-item" active-class="active" to="/author">
+                    <a class="nav-link">Author</a>
+                </router-link>
+            </ul>
         </div>
+        </nav>
 
         <router-view class="view"></router-view>
-
     </div>
 
     <footer class="footer">

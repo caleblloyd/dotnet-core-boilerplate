@@ -2,6 +2,9 @@
 cd $(dirname $0)
 cd ../
 
+mkdir -p $HOME/.cache/yarn
+mkdir -p $HOME/.nuget
+
 docker-compose up &
 
 for i in `seq 1 600`; do

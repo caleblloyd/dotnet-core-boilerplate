@@ -1,17 +1,7 @@
-# .NET Core Boilerplate
+# Jenkins Demo
 
-A complete .NET Core development environment scaffolded using Docker Compose containing:
+A 3-part Jenkins Demo with screencasts:
 
-- .NET Core 1.1 MVC App with Entity Framework MySQL
-- MySQL Server
-- phpMyAdmin
-- extensible Javascript UI
-- NGINX
-- Jenkins
-
-## Getting Started
-
-1. Clone Repository
-2. Install [Docker Compose](https://docs.docker.com/compose/install/)
-3. Run `docker-compose up` in repository root
-4. Navigate to `http://<your docker host>:48000`
+1. [Part 1: Jenkins Setup](docs/part1-jenkins-setup.md)
+2. [Part 2: Continuous Deployment to Docker Swarm](docs/part2-cd-docker-swarm.md)
+3. [Part 3: Continuous Deployment to Kubernetes](docs/part3-cd-kubernetes.md)

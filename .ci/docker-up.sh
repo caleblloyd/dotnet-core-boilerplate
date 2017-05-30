@@ -5,7 +5,7 @@ cd ../
 mkdir -p $HOME/.cache/yarn
 mkdir -p $HOME/.nuget
 
-docker-compose up &
+docker-compose up --build &
 
 for i in `seq 1 600`; do
 	# wait for dotnet to come up

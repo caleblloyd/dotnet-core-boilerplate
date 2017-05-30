@@ -4,26 +4,26 @@ throttle(['throttleDocker']){
       wrap([$class: 'AnsiColorBuildWrapper']) {
         stage('Setup') {
           checkout scm
-          sh '''./.ci/docker-up.sh'''
+          sh '''./ci/docker-up.sh'''
         }
         stage('Test'){
           parallel (
             "unit": {
-              sh '''./.ci/test-unit.sh'''
+              sh '''./ci/test-unit.sh'''
             },
             "functional": {
-              sh '''./.ci/test-functional.sh'''
+              sh '''./ci/test-functional.sh'''
             }
           )
         },
         stage('Capacity Test') {
-          sh '''./.ci/stress.sh'''
+          sh '''./ci/stress.sh'''
         }
       }
     }
     finally {
       stage('Cleanup'){
-        sh '''./.ci/docker-down.sh'''
+        sh '''./ci/docker-down.sh'''
       }
     }
   }

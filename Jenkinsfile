@@ -15,6 +15,9 @@ throttle(['throttleDocker']){
               sh '''./.ci/test-functional.sh'''
             }
           )
+        },
+        stage('Capacity Test') {
+          sh '''./.ci/stress.sh'''
         }
       }
     }

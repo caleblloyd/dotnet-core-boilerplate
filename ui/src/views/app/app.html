@@ -15,29 +15,16 @@
                 <router-link tag="li" class="nav-item" active-class="active" exact to="/">
                     <a class="nav-link">Posts</a>
                 </router-link>
-                <router-link tag="li" class="nav-item" active-class="active" to="/post">
-                    <a class="nav-link">Post</a>
-                </router-link>
                 <router-link tag="li" class="nav-item" active-class="active" to="/authors">
                     <a class="nav-link">Authors</a>
-                </router-link>
-                <router-link tag="li" class="nav-item" active-class="active" to="/author">
-                    <a class="nav-link">Author</a>
                 </router-link>
             </ul>
         </div>
         </nav>
 
-        <router-view class="view"></router-view>
+        <transition name="fade" mode="out-in">
+            <router-view class="view"></router-view>
+        </transition>
     </div>
 
-    <footer class="footer">
-        <div class="container">
-        <div class="row">
-            <div id="footerContent" class="col-sm-12">
-            Free and open source under the <a href="https://github.com/caleblloyd/dotnet-core-boilerplate/blob/develop/LICENSE">MIT License</a>
-            </div>
-        </div>
-        </div>
-    </footer>
 </div>

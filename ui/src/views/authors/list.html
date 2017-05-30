@@ -6,13 +6,11 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row lined" v-for="author of authors">
         <div class="col">
-            <div v-for="author of authors">
-                <div>
-                    <p><strong>Name</strong>: {{ author.name }}</p>
-                </div>
-            </div>
+            <router-link :to="'/author/' + author.id">
+                <h2>{{ author.name }}</h2>
+            </router-link>
         </div>
     </div>
 

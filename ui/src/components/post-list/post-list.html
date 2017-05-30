@@ -1,0 +1,15 @@
+<div>
+    <div class="row lined" v-for="post of posts">
+        <div class="col">
+            <router-link :to="'/post/' + post.id">
+                <h2>{{ post.title }}</h2>
+            </router-link>
+            <div v-html="post.preview"></div>
+            <div style="text-align:right;">
+                <router-link :to="'/post/' + post.id">
+                    Read more <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </router-link>
+            </div>
+        </div>
+    </div>
+</div>

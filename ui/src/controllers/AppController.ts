@@ -13,21 +13,22 @@ import '../styles/main.css'
 
 // Register the router hooks with thier names for components
 Component.registerHooks([
-  'beforeRouteEnter',
-  'beforeRouteLeave'
+    'beforeRouteEnter',
+    'beforeRouteUpdate',
+    'beforeRouteLeave'
 ])
 
 declare const System: any;
 
 Vue.use(VueRouter)
 
-export default function newApp(initialPath?: string) : DotvueApp{
+export default function newApp(initialPath?: string): DotvueApp {
     let router = new VueRouter({
         mode: 'history',
         routes: Routes
     })
     if (initialPath)
         router.push(initialPath)
-    
+
     return new DotvueApp(router, template)
 }

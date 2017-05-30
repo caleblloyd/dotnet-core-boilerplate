@@ -5,7 +5,7 @@ let config = {
     apiBase: ''
 }
 
-if (RUNTIME_ENV == 'server'){
+if (RUNTIME_ENV == 'server') {
     const DEVENV = process.env.DEVENV
 
     if (DEVENV == 'alpha' || DEVENV == 'beta' || DEVENV == 'prod')

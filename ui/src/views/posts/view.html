@@ -2,7 +2,16 @@
 
     <div class="row">
         <div class="col">
-            <h1><i class="fa fa-file-o"></i> Post</h1>
+            <h1><i class="fa fa-file-o"></i> {{ post.title }}</h1>
+        </div>
+    </div>
+
+    <div class="row" style="padding: 16px 0">
+        <div class="col">
+            <p style="color: #999">
+                Authored by <router-link :to="'/author/' + post.author.id">{{ post.author.name }}</router-link>
+            </p>
+            <div v-html="post.content"></div>
         </div>
     </div>
 

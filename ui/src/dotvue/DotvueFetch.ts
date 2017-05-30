@@ -1,5 +1,5 @@
-var fetchPolyfill:any
-if (typeof(window) !== 'undefined'){
+var fetchPolyfill: any
+if (typeof (window) !== 'undefined') {
     fetchPolyfill = fetch
 } else {
     fetchPolyfill = require('node-fetch').default

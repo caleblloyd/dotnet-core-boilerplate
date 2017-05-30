@@ -1,11 +1,28 @@
 import Post from './Post'
 
-export default class Author{
+export default class Author {
 
-    id: number;
+    public static convertAll(models: object[]): Author[] {
+        let converted = new Array<Author>()
+        for (let model of models) {
+            converted.push(new Author(model))
+        }
+        return converted
+    }
 
-    name: string;
+    constructor(model?: object){
+        if (model){
+            Object.assign(this, model)
+            if (this.posts){
+                this.posts = Post.convertAll(this.posts)
+            }
+        }
+    }
 
-    posts: Post[];
+    public id: number;
+
+    public name: string;
+
+    public posts: Post[];
 
 }

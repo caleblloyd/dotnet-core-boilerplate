@@ -2,21 +2,15 @@
     padding: 16px;
 }
 
-.footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .15s;
 }
 
-.footer .container {
-    padding-top: 1.5rem;
-    color: #777;
-    border-top: .05rem solid #e5e5e5;
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 
-#footerContent {
-    color: #777;
-    padding: 10px;
-    text-align: center;
+.lined {
+  padding: 16px 0;
+  border-bottom: 1px solid;
 }

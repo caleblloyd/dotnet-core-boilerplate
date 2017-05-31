@@ -7,4 +7,5 @@ su $USER_ID -c 'dotnet publish -c Release;
     mv bin/Release/netcoreapp1.1.2/publish /tmp;
     mkdir -p /tmp/publish/src/App/Common/Config;
     cp Common/Config/*.json /tmp/publish/src/App/Common/Config;
-    cp -r Data /tmp/publish/src/App;'
+    mkdir -p /tmp/publish/src/App/Data;
+    cp -r Data/* /tmp/publish/src/App/Data;'

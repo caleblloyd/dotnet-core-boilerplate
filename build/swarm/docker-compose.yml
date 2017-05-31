@@ -3,7 +3,10 @@ version: "3.1"
 services:
 
   dotnet:
+    image: "${REGISTRY}/boxboat/boxboat-blog-dotnet:${TAG}"
     command: ["sh", "-c", "ln -s /run/secrets/db /dotnet/App/src/App/Common/Config/config.${DEVENV}.json && dotnet App.dll"]
+    environment:
+      - DEVENV=${DEVENV}
     networks:
       - default
       - db
@@ -15,11 +18,19 @@ services:
       replicas: 3
 
   nginx:
+    image: "${REGISTRY}/boxboat/boxboat-blog-nginx:${TAG}"
+    environment:
+      - DEVENV=${DEVENV}
+    ports:
+      - "80:80"
     deploy:
       mode: replicated
       replicas: 3
 
   ui-ssr:
+    image: "${REGISTRY}/boxboat/boxboat-blog-ui-ssr:${TAG}"
+    environment:
+      - DEVENV=${DEVENV}
     deploy:
       mode: replicated
       replicas: 3

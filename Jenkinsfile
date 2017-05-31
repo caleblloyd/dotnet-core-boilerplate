@@ -19,9 +19,6 @@ throttle(['throttleDocker']) {
         stage('Capacity Test') {
           sh '''./ci/test/stress.sh'''
         }
-        stage('Publish') {
-          sh '''./ci/test/stress.sh'''
-        }
       }
       finally {
         stage('Cleanup') {

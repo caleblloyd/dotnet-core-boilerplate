@@ -10,7 +10,7 @@ then
 	docker network create db
 fi
 
-docker-compose -f docker-compose.yml -f ci/deploy/compose-dev-db.yml -p dev up -d
+docker-compose -f docker-compose.yml -f ci/deploy/compose-dev-db.yml -p dev up -d --build
 docker-compose -p dev logs -f &
 pid=$!
 

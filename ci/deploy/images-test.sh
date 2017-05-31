@@ -4,7 +4,7 @@ deploy_dir=$(pwd)
 
 # stop on errors
 set -e
-./images-common.sh $@
+./common.sh $@
 export DEVENV=$1
 export REGISTRY=$2
 export TAG=$3

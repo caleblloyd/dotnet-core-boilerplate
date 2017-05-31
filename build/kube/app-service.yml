@@ -1,11 +1,13 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: boxboat-blog-alpha
+  name: boxboat-blog-prod
 spec:
+  type: NodePort
   ports:
     - name: http
       port: 80
+      nodePort: 30080
       protocol: TCP
   selector:
-    app: boxboat-blog-alpha
+    app: boxboat-blog-prod

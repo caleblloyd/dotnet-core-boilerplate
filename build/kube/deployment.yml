@@ -1,44 +1,44 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: dotvue-blog-alpha
+  name: boxboat-blog-prod
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: dotvue-blog-alpha
+        app: boxboat-blog-prod
     spec:
       containers:
       - name: nginx
         imagePullPolicy: Always
-        image: gcr.io/caleb-lloyd/dotvue-blog-nginx:1
+        image: gcr.io/caleb-lloyd/boxboat-blog-nginx:1
         env:
         - name: DEVENV
-          value: alpha
+          value: prod
         ports:
         - containerPort: 80
       - name: dotnet
         imagePullPolicy: Always
-        image: gcr.io/caleb-lloyd/dotvue-blog-dotnet:1
+        image: gcr.io/caleb-lloyd/boxboat-blog-dotnet:1
         env:
         - name: DEVENV
-          value: alpha
+          value: prod
         ports:
         - containerPort: 5000
         volumeMounts:
-        - name: dotvue-blog-db
-          mountPath: /etc/secrets/dotvue-blog-db
+        - name: boxboat-blog-db
+          mountPath: /etc/secrets/boxboat-blog-db
           readOnly: true
       - name: ui-ssr
         imagePullPolicy: Always
-        image: gcr.io/caleb-lloyd/dotvue-blog-ui-ssr:1
+        image: gcr.io/caleb-lloyd/boxboat-blog-ui-ssr:1
         env:
         - name: DEVENV
-          value: alpha
+          value: prod
         ports:
         - containerPort: 4000
       volumes:
-      - name: dotvue-blog-db
+      - name: boxboat-blog-db
         secret:
-          secretName: dotvue-blog-db
+          secretName: boxboat-blog-db

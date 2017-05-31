@@ -1,11 +1,11 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: dotvue-blog-alpha
+  name: boxboat-blog-alpha
 spec:
   ports:
     - name: http
       port: 80
       protocol: TCP
   selector:
-    app: dotvue-blog-alpha
+    app: boxboat-blog-alpha

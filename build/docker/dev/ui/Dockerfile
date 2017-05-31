@@ -1,6 +1,6 @@
-FROM node:7.5.0-alpine
+FROM node:7.10.0-alpine
 
-RUN npm install --global yarn webpack webpack-dev-server >/dev/null 2>&1
+RUN yarn global add webpack webpack-dev-server
 
 COPY stage/ /
 RUN chmod +x /usr/local/bin/app-*

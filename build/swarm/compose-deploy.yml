@@ -1,0 +1,37 @@
+version: "3.1"
+
+services:
+
+  dotnet:
+    command: ["sh", "-c", "ln -s /run/secrets/db /dotnet/App/src/App/Common/Config/config.${DEVENV}.json && dotnet App.dll"]
+    networks:
+      - default
+      - db
+    secrets:
+      - source: db-${DEVENV}
+        target: db
+    deploy:
+      mode: replicated
+      replicas: 3
+
+  nginx:
+    deploy:
+      mode: replicated
+      replicas: 3
+
+  ui-ssr:
+    deploy:
+      mode: replicated
+      replicas: 3
+
+networks:
+  db:
+    external: true
+
+secrets:
+  db-alpha:
+    external: true
+  db-beta:
+    external: true
+  db-prod:
+    external: true

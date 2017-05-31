@@ -1,12 +1,20 @@
-version: "2"
+version: "3.1"
 
 services:
   dotnet:
     build: ./dotnet
-    image: "gcr.io/caleb-lloyd/dotvue-blog-dotnet:${TAG}"
+    image: "${REGISTRY}/boxboat/boxboat-blog-dotnet:${TAG}"
+    environment:
+      - DEVENV=${DEVENV}
   nginx:
     build: ./nginx
-    image: "gcr.io/caleb-lloyd/dotvue-blog-nginx:${TAG}"
+    image: "${REGISTRY}/boxboat/boxboat-blog-nginx:${TAG}"
+    environment:
+      - DEVENV=${DEVENV}
+    ports:
+      - "80:80"
   ui-ssr:
     build: ./ui-ssr
-    image: "gcr.io/caleb-lloyd/dotvue-blog-ui-ssr:${TAG}"
+    image: "${REGISTRY}/boxboat/boxboat-blog-ui-ssr:${TAG}"
+    environment:
+      - DEVENV=${DEVENV}

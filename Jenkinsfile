@@ -9,15 +9,18 @@ throttle(['throttleDocker']) {
         stage('Test'){
           parallel (
             "unit": {
-              sh '''./ci/test-unit.sh'''
+              sh '''./ci/test/unit.sh'''
             },
             "functional": {
-              sh '''./ci/test-functional.sh'''
+              sh '''./ci/test/functional.sh'''
             }
           )
         }
         stage('Capacity Test') {
-          sh '''./ci/stress.sh'''
+          sh '''./ci/test/stress.sh'''
+        }
+        stage('Publish') {
+          sh '''./ci/test/stress.sh'''
         }
       }
       finally {

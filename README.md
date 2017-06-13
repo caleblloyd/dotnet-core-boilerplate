@@ -13,7 +13,7 @@ A complete .NET Core development environment scaffolded using Docker Compose con
 - extensible Javascript UI
 - NGINX
 - Travis CI
-- Automated packaging and Alpha/Beta deployment to Google Container Registry and Kubernetes
+- Automated packaging and Docker Image deployment
 
 ## Getting Started
 

@@ -19,7 +19,7 @@ export class List extends Vue {
     public authors = new Array<Author>();
 
     public async beforeRouteEnter(to: Route, from: Route, next: any) {
-        let initialData = new DotvueInitialData<Author[]>(to, dataKeyList)
+        let initialData = new DotvueInitialData<object[]>(to, dataKeyList)
         await initialData.Set(AuthorsRepository.all)
         next(true)
     }

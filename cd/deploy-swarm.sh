@@ -8,4 +8,4 @@ export DEVENV=$1
 export REGISTRY=$2
 export TAG=$3
 
-docker stack deploy --with-registry-auth -c ../../build/swarm/docker-compose.yml boxboat-blog-$DEVENV
+docker stack deploy --with-registry-auth -c ./swarm/stack.yml boxboat-blog-$DEVENV

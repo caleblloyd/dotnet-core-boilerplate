@@ -30,7 +30,7 @@
     "style-loader": "^0.18.1",
     "tether": "^1.4.0",
     "tslib": "^1.7.1",
-    "typescript": "^2.3.3",
+    "typescript": "2.3.3",
     "url-loader": "^0.5.8",
     "vue": "^2.3.3",
     "vue-class-component": "^5.0.1",

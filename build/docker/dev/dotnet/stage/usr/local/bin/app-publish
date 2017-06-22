@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
 
-cd /dotnet/src/App
-USER_ID=$(ls -l | grep Common | awk '{print $3}')
+cd /dotnet
+USER_ID=$(ls -l | grep src | awk '{print $3}')
+cd src/App
 su $USER_ID -c 'dotnet publish -c Release;
     rm -rf /tmp/publish;
     mv bin/Release/netcoreapp1.1.2/publish /tmp;

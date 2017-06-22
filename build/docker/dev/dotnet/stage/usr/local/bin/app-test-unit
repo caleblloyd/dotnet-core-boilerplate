@@ -2,6 +2,8 @@
 
 set -e
 
-cd /dotnet/tests/App.Unit
-USER_ID=$(ls -l | grep Common | awk '{print $3}')
+cd /dotnet
+USER_ID=$(ls -l | grep src | awk '{print $3}')
+cd tests/App.Unit
+
 su $USER_ID -c 'dotnet test -c Debug'

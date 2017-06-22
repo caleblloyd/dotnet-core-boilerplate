@@ -21,6 +21,8 @@ services:
     image: "${REGISTRY}/boxboat/boxboat-blog-ui-ssr:${TAG}"
     environment:
       - DEVENV=${DEVENV}
+    depends_on:
+      - dotnet
     deploy:
       mode: replicated
       replicas: 3
@@ -31,6 +33,9 @@ services:
       - DEVENV=${DEVENV}
     ports:
       - "80:80"
+    depends_on:
+      - dotnet
+      - ui-ssr
     deploy:
       mode: replicated
       replicas: 3

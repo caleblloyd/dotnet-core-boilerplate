@@ -17,6 +17,8 @@ services:
       - MYSQL_ROOT_PASSWORD=test
     ports:
       - "48011:80"
+    depends_on:
+      - db
 
   dotnet:
     build: ./build/docker/dev/dotnet
@@ -29,6 +31,8 @@ services:
     volumes:
       - ./dotnet:/mnt/dotnet
       - ${HOME}/.nuget:/home/user/.nuget
+    depends_on:
+      - db
 
   ui-ssr:
     build: ./build/docker/dev/ui-ssr
@@ -37,6 +41,8 @@ services:
       - DEVENV=dev
     volumes:
       - ./ui:/ui
+    depends_on:
+      - dotnet
 
   ui:
     build: ./build/docker/dev/ui
@@ -56,3 +62,7 @@ services:
       - "48000:8000"
       - "48001:8001"
       - "48002:8002"
+    depends_on:
+      - dotnet
+      - ui-ssr
+      - ui

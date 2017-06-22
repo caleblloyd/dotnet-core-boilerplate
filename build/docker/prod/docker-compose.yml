@@ -12,11 +12,16 @@ services:
     image: "${REGISTRY}/boxboat/boxboat-blog-ui-ssr:${TAG}"
     environment:
       - DEVENV=${DEVENV}
+    depends_on:
+      - dotnet
 
   nginx:
     build: ./nginx
     image: "${REGISTRY}/boxboat/boxboat-blog-nginx:${TAG}"
     environment:
       - DEVENV=${DEVENV}
+    depends_on:
+      - dotnet
+      - ui-ssr
     ports:
       - "80:80"

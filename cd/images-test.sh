@@ -10,7 +10,7 @@ export REGISTRY=$2
 export TAG=$3
 
 echo "Testing environment: $1, registry: $2, version: $3"
-cd ../../build/docker/prod
+cd ../build/docker/prod
 
 docker-compose -f docker-compose.yml -f $deploy_dir/compose-image-db.yml -p image up -d
 docker-compose -p image logs -f &

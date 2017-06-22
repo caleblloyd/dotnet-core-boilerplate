@@ -9,7 +9,7 @@ export REGISTRY=$2
 export TAG=$3
 
 echo "Building environment: $1, registry: $2, version: $3"
-cd ../../build/docker/prod
+cd ../build/docker/prod
 
 # copy dotnet assets
 echo "Building backend Assets"

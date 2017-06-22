@@ -9,7 +9,7 @@ export REGISTRY=$2
 export TAG=$3
 
 echo "Publishing environment: $1, registry: $2, version: $3"
-cd ../../build/docker/prod
+cd ../build/docker/prod
 
 docker push ${REGISTRY}/boxboat/boxboat-blog-dotnet:${TAG}
 docker push ${REGISTRY}/boxboat/boxboat-blog-nginx:${TAG}

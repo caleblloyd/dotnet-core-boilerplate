@@ -2,45 +2,6 @@ version: "3.1"
 
 services:
 
-  ui:
-    build: ./build/docker/dev/ui
-    container_name: app-dev-ui
-    environment:
-      - DEVENV=dev
-    volumes:
-      - ./ui:/ui
-      - ${HOME}/.cache/yarn:/home/user/.cache/yarn
-
-  ui-ssr:
-    build: ./build/docker/dev/ui-ssr
-    container_name: app-dev-ui-ssr
-    environment:
-      - DEVENV=dev
-    volumes:
-      - ./ui:/ui
-
-  nginx:
-    build: ./build/docker/dev/nginx
-    container_name: app-dev-nginx
-    environment:
-      - DEVENV=dev
-    ports:
-      - "48000:8000"
-      - "48001:8001"
-      - "48002:8002"
-
-  dotnet:
-    build: ./build/docker/dev/dotnet
-    container_name: app-dev-dotnet
-    environment:
-      - DEVENV=dev
-      - DOTNET_USE_POLLING_FILE_WATCHER=true
-    ports:
-      - "48010:5000"
-    volumes:
-      - ./dotnet:/mnt/dotnet
-      - ${HOME}/.nuget:/home/user/.nuget
-
   db:
     image: mysql:5.7.17
     container_name: app-dev-db
@@ -56,3 +17,42 @@ services:
       - MYSQL_ROOT_PASSWORD=test
     ports:
       - "48011:80"
+
+  dotnet:
+    build: ./build/docker/dev/dotnet
+    container_name: app-dev-dotnet
+    environment:
+      - DEVENV=dev
+      - DOTNET_USE_POLLING_FILE_WATCHER=true
+    ports:
+      - "48010:5000"
+    volumes:
+      - ./dotnet:/mnt/dotnet
+      - ${HOME}/.nuget:/home/user/.nuget
+
+  ui-ssr:
+    build: ./build/docker/dev/ui-ssr
+    container_name: app-dev-ui-ssr
+    environment:
+      - DEVENV=dev
+    volumes:
+      - ./ui:/ui
+
+  ui:
+    build: ./build/docker/dev/ui
+    container_name: app-dev-ui
+    environment:
+      - DEVENV=dev
+    volumes:
+      - ./ui:/ui
+      - ${HOME}/.cache/yarn:/home/user/.cache/yarn
+
+  nginx:
+    build: ./build/docker/dev/nginx
+    container_name: app-dev-nginx
+    environment:
+      - DEVENV=dev
+    ports:
+      - "48000:8000"
+      - "48001:8001"
+      - "48002:8002"

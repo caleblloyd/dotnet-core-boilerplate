@@ -6,6 +6,13 @@ services:
     image: "${REGISTRY}/boxboat/boxboat-blog-dotnet:${TAG}"
     environment:
       - DEVENV=${DEVENV}
+
+  ui-ssr:
+    build: ./ui-ssr
+    image: "${REGISTRY}/boxboat/boxboat-blog-ui-ssr:${TAG}"
+    environment:
+      - DEVENV=${DEVENV}
+
   nginx:
     build: ./nginx
     image: "${REGISTRY}/boxboat/boxboat-blog-nginx:${TAG}"
@@ -13,8 +20,3 @@ services:
       - DEVENV=${DEVENV}
     ports:
       - "80:80"
-  ui-ssr:
-    build: ./ui-ssr
-    image: "${REGISTRY}/boxboat/boxboat-blog-ui-ssr:${TAG}"
-    environment:
-      - DEVENV=${DEVENV}

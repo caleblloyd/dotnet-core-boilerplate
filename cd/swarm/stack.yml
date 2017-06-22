@@ -17,20 +17,20 @@ services:
       mode: replicated
       replicas: 3
 
+  ui-ssr:
+    image: "${REGISTRY}/boxboat/boxboat-blog-ui-ssr:${TAG}"
+    environment:
+      - DEVENV=${DEVENV}
+    deploy:
+      mode: replicated
+      replicas: 3
+
   nginx:
     image: "${REGISTRY}/boxboat/boxboat-blog-nginx:${TAG}"
     environment:
       - DEVENV=${DEVENV}
     ports:
       - "80:80"
-    deploy:
-      mode: replicated
-      replicas: 3
-
-  ui-ssr:
-    image: "${REGISTRY}/boxboat/boxboat-blog-ui-ssr:${TAG}"
-    environment:
-      - DEVENV=${DEVENV}
     deploy:
       mode: replicated
       replicas: 3

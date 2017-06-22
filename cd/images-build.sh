@@ -14,6 +14,7 @@ cd ../build/docker/prod
 # copy dotnet assets
 echo "Building backend Assets"
 docker exec app-dev-dotnet app-publish
+mkdir -p dotnet/stage/dotnet
 rm -rf dotnet/stage/dotnet/App
 docker cp app-dev-dotnet:/tmp/publish dotnet/stage/dotnet/App
 
@@ -21,11 +22,11 @@ docker cp app-dev-dotnet:/tmp/publish dotnet/stage/dotnet/App
 echo "Building frontend Assets"
 rm -rf ../../../ui/dist/* ../../../ui/dist-ssr/*
 docker exec app-dev-ui app-publish
-rm -rf nginx/stage/var/www
 mkdir -p nginx/stage/var
+rm -rf nginx/stage/var/www
 docker cp app-dev-ui:/ui/dist nginx/stage/var/www
-rm -rf ui-ssr/stage/ui
 mkdir -p ui-ssr/stage
+rm -rf ui-ssr/stage/ui
 docker cp app-dev-ui:/ui/dist-ssr ui-ssr/stage/ui
 docker cp app-dev-ui:/ui/dist/index.html ui-ssr/stage/ui
 

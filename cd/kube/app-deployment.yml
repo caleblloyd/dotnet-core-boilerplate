@@ -12,7 +12,7 @@ spec:
       containers:
       - name: nginx
         command: ["sh", "-c", "echo '127.0.0.1 dotnet nginx ui-ssr' > /etc/hosts && nginx -g 'daemon off;'"]
-        image: dtr.caleb.boxboat.net/boxboat/boxboat-blog-nginx:4
+        image: dtr.caleb.boxboat.net/boxboat/boxboat-blog-nginx:1
         env:
         - name: DEVENV
           value: prod
@@ -23,7 +23,7 @@ spec:
             cpu: "1m"
       - name: dotnet
         command: ["sh", "-c", "echo '127.0.0.1 dotnet nginx ui-ssr' > /etc/hosts && ln -s /etc/secrets/boxboat-blog-db/config /dotnet/App/src/App/Common/Config/config.prod.json && dotnet App.dll"]
-        image: dtr.caleb.boxboat.net/boxboat/boxboat-blog-dotnet:4
+        image: dtr.caleb.boxboat.net/boxboat/boxboat-blog-dotnet:1
         env:
         - name: DEVENV
           value: prod
@@ -36,7 +36,7 @@ spec:
             cpu: "1m"
       - name: ui-ssr
         command: ["sh", "-c", "echo '127.0.0.1 dotnet nginx ui-ssr' > /etc/hosts && node server.js"]
-        image: dtr.caleb.boxboat.net/boxboat/boxboat-blog-ui-ssr:4
+        image: dtr.caleb.boxboat.net/boxboat/boxboat-blog-ui-ssr:1
         env:
         - name: DEVENV
           value: prod

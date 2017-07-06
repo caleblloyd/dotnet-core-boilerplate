@@ -55,6 +55,6 @@ export DOCKER_HOST=tcp://[swarm manager ip]:2375
 
 2. Login to your Jenkins Build Agent and authenticate to your Docker registry using `docker login [registry]`
 
-3. Edit the `Jenkinsfile` - under the `Deploy to Docker Swarm` stage, the registry URL to point at your Docker registry and update the `DOCKER_HOST` to point at your Docker Swarm manager.
+3. Edit the `Jenkinsfile` - under the `Deploy to Docker Swarm` stage, update the registry URL to point at your Docker registry and update the `DOCKER_HOST` to point at your Docker Swarm manager.
 
 4. Run Jenkins Blue Ocean against the `cd-docker-swarm` branch to deploy to your Docker Swarm

@@ -1,4 +1,4 @@
-# Part 2: Continuous Deployment to Docker Swarm
+# Part 2: Continuous Delivery to Docker Swarm
 
 First, setup a 2-node Docker swarm.  These instructions assume that systemd is used to manage services.
 

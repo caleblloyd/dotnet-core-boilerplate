@@ -1,4 +1,4 @@
-# Part 3: Continuous Deployment to Kubernetes
+# Part 3: Continuous Delivery to Kubernetes
 
 ## Kubernetes Setup
 

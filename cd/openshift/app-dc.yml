@@ -1,0 +1,75 @@
+kind: DeploymentConfig
+metadata:
+  name: boxboat-blog-prod
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: boxboat-blog-prod
+    spec:
+      containers:
+      - name: nginx
+        command: ["sh", "-c", "echo '127.0.0.1 dotnet nginx ui-ssr' > /etc/hosts && nginx -g 'daemon off;'"]
+        image: 172.30.1.1:5000/boxboat/boxboat-blog-nginx
+        env:
+        - name: DEVENV
+          value: prod
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "1m"
+      - name: dotnet
+        command: ["sh", "-c", "echo '127.0.0.1 dotnet nginx ui-ssr' > /etc/hosts && ln -s /etc/secrets/boxboat-blog-db/config /dotnet/App/src/App/Common/Config/config.prod.json && dotnet App.dll"]
+        image: 172.30.1.1:5000/boxboat/boxboat-blog-dotnet
+        env:
+        - name: DEVENV
+          value: prod
+        volumeMounts:
+        - name: boxboat-blog-db
+          mountPath: /etc/secrets/boxboat-blog-db
+          readOnly: true
+        resources:
+          requests:
+            cpu: "1m"
+      - name: ui-ssr
+        command: ["sh", "-c", "echo '127.0.0.1 dotnet nginx ui-ssr' > /etc/hosts && node server.js"]
+        image: 172.30.1.1:5000/boxboat/boxboat-blog-ui-ssr
+        env:
+        - name: DEVENV
+          value: prod
+        resources:
+          requests:
+            cpu: "1m"
+      volumes:
+      - name: boxboat-blog-db
+        secret:
+          secretName: db-prod
+  triggers:
+  - type: "ImageChange"
+    imageChangeParams:
+      automatic: true
+      from:
+        kind: "ImageStreamTag"
+        name: "boxboat-blog-nginx:latest"
+      containerNames:
+        - "nginx"
+  - type: "ImageChange"
+    imageChangeParams:
+      automatic: true 
+      from:
+        kind: "ImageStreamTag"
+        name: "boxboat-blog-dotnet:latest"
+      containerNames:
+        - "dotnet"
+  - type: "ImageChange"
+    imageChangeParams:
+      automatic: true 
+      from:
+        kind: "ImageStreamTag"
+        name: "boxboat-blog-ui-ssr:latest"
+      containerNames:
+        - "ui-ssr"
+  strategy: 
+    type: "Rolling"

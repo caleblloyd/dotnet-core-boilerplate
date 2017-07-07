@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: docker-registry-external
+spec:
+  type: NodePort
+  ports:
+    - name: docker-registry
+      port: 5000
+      nodePort: 30500
+      protocol: TCP
+  selector:
+    docker-registry: default

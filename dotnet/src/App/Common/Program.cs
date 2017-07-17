@@ -15,21 +15,27 @@ namespace App
         {
             if (args.Length == 0)
             {
+                var tryMigrate = 0;
                 while (true)
                 {
-                    var tryMigrate = 0;
                     try
                     {
+                        Console.WriteLine($"Migration attempt {tryMigrate + 1}/3");
                         using (var db = new AppDb())
                             db.Database.Migrate();
+                        Console.WriteLine("Migration complete");
                         break;
                     }
-                    catch (MySqlException)
+                    catch (MySqlException e)
                     {
-                        if (tryMigrate > 10)
+                        Console.WriteLine("Migration failed");
+                        Console.WriteLine(e.Message);
+                        if (tryMigrate >= 2)
                             throw;
-                        Thread.Sleep(TimeSpan.FromSeconds(1));
+                        Console.WriteLine("Trying again in 3 seconds");
+                        Thread.Sleep(TimeSpan.FromSeconds(3));
                     }
+                    tryMigrate++;
                 }
 
 	            var host = new WebHostBuilder()

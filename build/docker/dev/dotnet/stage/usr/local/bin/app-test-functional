@@ -2,8 +2,5 @@
 
 set -e
 
-cd /dotnet
-USER_ID=$(ls -l | grep src | awk '{print $3}')
-cd tests/App.Functional
-
-su $USER_ID -c 'dotnet test -c Release'
+cd /dotnet/tests/App.Functional
+dotnet test -c Release

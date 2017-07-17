@@ -32,7 +32,7 @@ services:
     environment:
       - DEVENV=${DEVENV}
     ports:
-      - "80:80"
+      - "80:8000"
     depends_on:
       - dotnet
       - ui-ssr

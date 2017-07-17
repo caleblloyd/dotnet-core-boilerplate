@@ -24,4 +24,4 @@ services:
       - dotnet
       - ui-ssr
     ports:
-      - "80:80"
+      - "80:8000"

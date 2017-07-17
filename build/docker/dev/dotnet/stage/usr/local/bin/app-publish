@@ -1,12 +1,11 @@
 #!/usr/bin/env sh
 
-cd /dotnet
-USER_ID=$(ls -l | grep src | awk '{print $3}')
-cd src/App
-su $USER_ID -c 'dotnet publish -c Release;
-    rm -rf /tmp/publish;
-    mv bin/Release/netcoreapp1.1.2/publish /tmp;
-    mkdir -p /tmp/publish/src/App/Common/Config;
-    cp Common/Config/*.json /tmp/publish/src/App/Common/Config;
-    mkdir -p /tmp/publish/src/App/Data;
-    cp -r Data/* /tmp/publish/src/App/Data;'
+cd /dotnet/src/App
+
+dotnet publish -c Release
+rm -rf /tmp/publish
+mv bin/Release/netcoreapp1.1.2/publish /tmp
+mkdir -p /tmp/publish/src/App/Common/Config
+cp Common/Config/*.json /tmp/publish/src/App/Common/Config
+mkdir -p /tmp/publish/src/App/Data
+cp -r Data/* /tmp/publish/src/App/Data

@@ -1,8 +1,5 @@
 #!/usr/bin/env sh
 
-# call fixuid
-fixuid
-
 # remove all of the symlinks if any exist
 find /dotnet -type l -maxdepth 3 -exec rm {} \;
 

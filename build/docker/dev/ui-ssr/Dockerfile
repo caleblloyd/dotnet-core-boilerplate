@@ -4,13 +4,16 @@ FROM node:7.10.0-alpine
 RUN apk update && apk add curl
 
 # install fixuid
-RUN curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.1/fixuid-0.1-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
+RUN USER=node && \
+    GROUP=node && \
+    curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.1/fixuid-0.1-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
     chown root:root /usr/local/bin/fixuid && \
-    chmod u+s /usr/local/bin/fixuid && \
+    chmod 4755 /usr/local/bin/fixuid && \
     mkdir -p /etc/fixuid && \
-    echo "user: node\ngroup: node" > /etc/fixuid/config.yml
+    printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml
 
-# set command
+# set entrypoint and command
+ENTRYPOINT ["fixuid"]
 CMD ["app-run"]
 
 # copy staged files

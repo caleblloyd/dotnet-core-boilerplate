@@ -16,8 +16,10 @@ RUN USER=node && \
 ENTRYPOINT ["fixuid"]
 CMD ["app-run"]
 
-# install global packages
-RUN yarn global add webpack webpack-dev-server
+# install global packages and setup cache dir
+RUN yarn global add webpack webpack-dev-server && \
+    mkdir -p /home/node/.cache && \
+    chown node:node /home/node/.cache
 
 # copy staged files
 COPY stage/ /

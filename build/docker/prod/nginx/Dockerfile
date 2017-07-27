@@ -12,5 +12,8 @@ EXPOSE 8001
 # copy application files
 COPY stage/ /
 
+# fix permissions on configurations
+RUN chown -R nginx:nginx /etc/nginx/conf.d
+
 # set user
 USER nginx:nginx

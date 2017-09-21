@@ -17,7 +17,7 @@ ENTRYPOINT ["fixuid"]
 CMD ["app-run"]
 
 # install global packages and setup cache dir
-RUN yarn global add webpack webpack-dev-server && \
+RUN yarn global add webpack@2.7.0 webpack-dev-server@2.5.0 && \
     mkdir -p /home/node/.cache && \
     chown node:node /home/node/.cache
 

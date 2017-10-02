@@ -1,0 +1,12 @@
+version: "3.1"
+
+services:
+  dotnet:
+    command: ["sh", "-c", "ln -s /dotnet/App/src/App/Common/Config/config.dev.json /dotnet/App/src/App/Common/Config/config.${DEVENV}.json && dotnet App.dll"]
+    networks:
+      - default
+      - db
+
+networks:
+  db:
+    external: true

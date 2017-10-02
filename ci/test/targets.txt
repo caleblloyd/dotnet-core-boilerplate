@@ -1,0 +1,3 @@
+GET http://localhost:48000
+GET http://localhost:48000/api/posts/
+GET http://localhost:48000/api/authors/

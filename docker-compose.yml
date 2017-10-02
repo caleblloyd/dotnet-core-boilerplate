@@ -1,51 +1,6 @@
-version: "2"
+version: "3.1"
 
 services:
-
-  ui:
-    build: ./build/docker/dev/ui
-    container_name: app-dev-ui
-    environment:
-      - DEVENV=dev
-    volumes:
-      - ./ui:/ui
-      - ${HOME}/.cache/yarn:/home/user/.cache/yarn
-
-  ui-ssr:
-    build: ./build/docker/dev/ui-ssr
-    container_name: app-dev-ui-ssr
-    environment:
-      - DEVENV=dev
-    volumes:
-      - ./ui:/ui
-
-  nginx:
-    build: ./build/docker/dev/nginx
-    container_name: app-dev-nginx
-    environment:
-      - DEVENV=dev
-    links:
-      - dotnet
-      - ui
-      - ui-ssr
-    ports:
-      - "48000:8000"
-      - "48001:8001"
-      - "48002:8002"
-
-  dotnet:
-    build: ./build/docker/dev/dotnet
-    container_name: app-dev-dotnet
-    environment:
-      - DEVENV=dev
-      - DOTNET_USE_POLLING_FILE_WATCHER=true
-    links:
-      - db
-    ports:
-      - "48010:5000"
-    volumes:
-      - ./dotnet:/mnt/dotnet
-      - ${HOME}/.nuget:/home/user/.nuget
 
   db:
     image: mysql:5.7.17
@@ -60,7 +15,57 @@ services:
     container_name: app-dev-phpmyadmin
     environment:
       - MYSQL_ROOT_PASSWORD=test
-    links:
-      - db
     ports:
-    - "48011:80"
+      - "48011:80"
+    depends_on:
+      - db
+
+  dotnet:
+    build: ./build/docker/dev/dotnet
+    container_name: app-dev-dotnet
+    environment:
+      - DEVENV=dev
+      - DOTNET_USE_POLLING_FILE_WATCHER=true
+    ports:
+      - "48010:5000"
+    volumes:
+      - ./dotnet:/mnt/dotnet
+      - ./.cache/nuget:/home/docker/.nuget
+    user: ${FIXUID:-1000}:${FIXGID:-1000}
+    depends_on:
+      - db
+
+  ui-ssr:
+    build: ./build/docker/dev/ui-ssr
+    container_name: app-dev-ui-ssr
+    environment:
+      - DEVENV=dev
+    volumes:
+      - ./ui:/ui
+    user: ${FIXUID:-1000}:${FIXGID:-1000}
+    depends_on:
+      - dotnet
+
+  ui:
+    build: ./build/docker/dev/ui
+    container_name: app-dev-ui
+    environment:
+      - DEVENV=dev
+    volumes:
+      - ./ui:/ui
+      - ./.cache/yarn:/home/node/.cache/yarn
+    user: ${FIXUID:-1000}:${FIXGID:-1000}
+
+  nginx:
+    build: ./build/docker/dev/nginx
+    container_name: app-dev-nginx
+    environment:
+      - DEVENV=dev
+    ports:
+      - "48000:8000"
+      - "48001:8001"
+      - "48002:8002"
+    depends_on:
+      - dotnet
+      - ui-ssr
+      - ui

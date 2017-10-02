@@ -1,6 +1,23 @@
-FROM node:7.5.0-alpine
+FROM node:7.10.0-alpine
 
+# install packages
+RUN apk update && apk add curl
+
+# install fixuid
+RUN USER=node && \
+    GROUP=node && \
+    curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.1/fixuid-0.1-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
+    chown root:root /usr/local/bin/fixuid && \
+    chmod 4755 /usr/local/bin/fixuid && \
+    mkdir -p /etc/fixuid && \
+    printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml
+
+# set entrypoint and command
+ENTRYPOINT ["fixuid"]
+CMD ["app-run"]
+
+# copy staged files
 COPY stage/ /
-RUN chmod +x /usr/local/bin/app-*
 
-CMD ["app-bootstrap"]
+# set user
+USER node:node

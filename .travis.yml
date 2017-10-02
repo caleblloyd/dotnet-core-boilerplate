@@ -1,6 +1,3 @@
-language: python
-python:
-  - "2.7"
 sudo: required
 dist: trusty
 
@@ -12,17 +9,17 @@ branches:
 services:
   - docker
 
-env:
-  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+install:
+  - curl -SsL https://github.com/tsenart/vegeta/releases/download/v6.3.0/vegeta-v6.3.0-linux-amd64.tar.gz | sudo tar xzf - -C /usr/local/bin
 
-before_install:
-  - ./.ci/docker-up.sh
+before_script:
+  - export FIXUID=$(id -u); export FIXGID=$(id -g); ./ci/docker-up.sh
 
 script:
-  - ./.ci/test.sh
-
-# after_script:
-#   - ./.ci/publish-ci.sh
+  - ./ci/test/unit.sh
+  - ./ci/test/functional.sh
+  - ./ci/test/stress.sh
 
 notifications:
   email: false
+

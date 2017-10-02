@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+set -e
+
+cd /dotnet/tests/App.Unit
+dotnet test -c Debug

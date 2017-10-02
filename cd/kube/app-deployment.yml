@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: boxboat-blog-prod
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: boxboat-blog-prod
+    spec:
+      containers:
+      - name: nginx
+        command: ["sh", "-c", "sed -i 's/dotnet:5000/localhost:5000/g' /etc/nginx/conf.d/*.conf && sed -i 's/ui-ssr:4000/localhost:4000/g' /etc/nginx/conf.d/*.conf && nginx -g 'daemon off;'"]
+        image: dtr.caleb.boxboat.net/boxboat/boxboat-blog-nginx:1
+        env:
+        - name: DEVENV
+          value: prod
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: "1m"
+      - name: dotnet
+        command: ["sh", "-c", "ln -s /etc/secrets/boxboat-blog-db/config /dotnet/App/src/App/Common/Config/config.prod.json && dotnet App.dll"]
+        image: dtr.caleb.boxboat.net/boxboat/boxboat-blog-dotnet:1
+        env:
+        - name: DEVENV
+          value: prod
+        volumeMounts:
+        - name: boxboat-blog-db
+          mountPath: /etc/secrets/boxboat-blog-db
+          readOnly: true
+        resources:
+          requests:
+            cpu: "1m"
+      - name: ui-ssr
+        command: ["sh", "-c", "sed -i 's/nginx:8001/localhost:8001/g' /ui/*.js && node server.js"]
+        image: dtr.caleb.boxboat.net/boxboat/boxboat-blog-ui-ssr:1
+        env:
+        - name: DEVENV
+          value: prod
+        resources:
+          requests:
+            cpu: "1m"
+      volumes:
+      - name: boxboat-blog-db
+        secret:
+          secretName: db-prod

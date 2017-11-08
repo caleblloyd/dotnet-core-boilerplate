@@ -1,8 +1,16 @@
 import indexContents from './src/public/index.html'
 import newApp from './src/controllers/AppController'
 import express from 'express'
+import morgan from 'morgan'
 import * as fs from "fs"
 import * as path from "path"
+
+// wrapper for using async functions in Express
+// see https://medium.com/@Abazhenov/using-async-await-in-express-with-node-8-b8af872c0016
+const asyncWrapper = (fn: Function) => (request: express.Request, response: express.Response, next: any) => {
+    Promise.resolve(fn(request, response, next))
+        .catch(next);
+};
 
 let layout = indexContents
 let layoutFile = path.normalize('/ui/index.html')
@@ -13,6 +21,10 @@ if (fs.existsSync(layoutFile)) {
 let renderer = require('vue-server-renderer').createRenderer()
 
 let server = express()
+
+// logging middleware
+server.use(morgan('combined'))
+
 server.use('/assets', express.static(
     './dist/assets'
 ))
@@ -21,7 +33,7 @@ server.get('/favicon.ico', (request: express.Request, response: express.Response
     response.status(204).send()
 })
 
-server.get('*', async (request: express.Request, response: express.Response) => {
+server.get('*', asyncWrapper(async (request: express.Request, response: express.Response) => {
 
     let modLayout = layout
     let noscript = request.header("x-dotvue-noscript")
@@ -47,7 +59,7 @@ server.get('*', async (request: express.Request, response: express.Response) => 
         response.send(modLayout.replace('<div id="app"></div>', html))
     })
 
-})
+}))
 
 // Listen on port 4000
 server.listen(4000, '0.0.0.0', function (error: any) {

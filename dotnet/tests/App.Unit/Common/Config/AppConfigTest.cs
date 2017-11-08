@@ -1,5 +1,5 @@
 using System;
-using App.Config;
+using App.Common.Config;
 using Xunit;
 
 namespace App.Unit.Common.Config

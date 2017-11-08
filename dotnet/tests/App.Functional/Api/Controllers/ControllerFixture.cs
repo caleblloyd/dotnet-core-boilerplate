@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
 using App.Api.Models;
-using App.Db;
+using App.Common.Db;
 
 namespace App.Functional.Api.Controllers{
 
     public class ControllerFixture : IDisposable
     {
 
-        private readonly AppDb _db = new AppDb();
+        private AppDbScope _dbScope = new AppDbScope();
 
+        public AppDb AppDb => _dbScope.AppDb;
+        
         public readonly Author Author;
         public readonly List<Post> Posts = new List<Post>();
 
@@ -18,7 +20,7 @@ namespace App.Functional.Api.Controllers{
             Author = new Author{
                 Name = "author 0"
             };
-            _db.Authors.Add(Author);
+            AppDb.Authors.Add(Author);
             for (var i=0; i<3; i++){
                 var post = new Post{
                     Author = Author,
@@ -26,16 +28,21 @@ namespace App.Functional.Api.Controllers{
                     Content = $"content {i}",
                 };
                 Posts.Add(post);
-                _db.Posts.Add(post);
+                AppDb.Posts.Add(post);
             }
-            _db.SaveChanges();
+            AppDb.SaveChanges();
         }
 
         public void Dispose()
         {
-            _db.Posts.RemoveRange(Posts);
-            _db.Authors.Remove(Author);
-            _db.SaveChanges();
+            if (_dbScope != null)
+            {
+                AppDb.Posts.RemoveRange(Posts);
+                AppDb.Authors.Remove(Author);
+                AppDb.SaveChanges();
+                _dbScope.Dispose();
+                _dbScope = null;
+            }
         }
     }
 

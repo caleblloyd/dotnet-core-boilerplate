@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:1.1.2-sdk
+FROM microsoft/dotnet:2.0.0-sdk
 
 # add docker user and setup folders
 RUN addgroup --gid 1000 docker && \

@@ -1,4 +1,4 @@
-FROM node:7.10.0-alpine
+FROM node:8.9.0-alpine
 
 # install packages
 RUN apk update && apk add curl

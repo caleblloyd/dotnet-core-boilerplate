@@ -110,7 +110,7 @@ let devConfig = {
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
-            Tether: 'tether'
+            Popper: 'popper.js'
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
@@ -174,7 +174,7 @@ let prodConfig = {
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
-            Tether: 'tether'
+            Popper: 'popper.js'
         }),
         new ExtractTextPlugin("styles.[contenthash].css"),
         new CopyWebpackPlugin([{

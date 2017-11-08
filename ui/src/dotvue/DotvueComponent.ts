@@ -16,13 +16,14 @@ if (module && module.hot) {
     api.install(Vue);
 }
 
-export default function DotvueComponent<U extends Vue>(nodeModule: NodeModule, options: ComponentOptions<U>): <V extends VueClass>(target: V) => V
-export default function DotvueComponent<V extends VueClass>(nodeModule: NodeModule, target: V): V
-export default function DotvueComponent<V extends VueClass, U extends Vue>(nodeModule: NodeModule, options: ComponentOptions<U> | V): any {
+export default function DotvueComponent <V extends Vue>(nodeModule: NodeModule, options: ComponentOptions<V> & ThisType<V>): <VC extends VueClass<V>>(target: VC) => VC
+export default function DotvueComponent <VC extends VueClass<Vue>>(nodeModule: NodeModule, target: VC): VC
+export default function DotvueComponent (nodeModule: NodeModule, options: ComponentOptions<Vue> | VueClass<Vue>): any {
+
     let componentDecorator = Component(options)
     let nodeHotModule = nodeModule as HotModule
 
-    return function (target: V): VueClass {
+    return function (target: any): VueClass<Vue> {
 
         let originalClassName = target.name
         let component = componentDecorator(target)

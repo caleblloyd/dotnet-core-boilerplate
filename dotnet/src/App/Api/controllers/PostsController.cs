@@ -22,7 +22,8 @@ namespace App.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> ListAsync()
         {
-			return new OkObjectResult(await _db.Posts.Include(m => m.Author).OrderByDescending(m => m.Id).ToListAsync());
+			var results = await _db.Posts.Include(m => m.Author).OrderByDescending(m => m.Id).ToListAsync();
+			return new OkObjectResult(results);
         }
 
         // GET api/posts/5

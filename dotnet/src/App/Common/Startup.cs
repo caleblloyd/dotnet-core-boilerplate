@@ -32,7 +32,6 @@ namespace App.Common
                     options.SerializerSettings.Converters.Add(new StringEnumConverter());
                     options.SerializerSettings.Formatting = Formatting.Indented;
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
-                    options.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
                 });
             
             ConfigureEntityFramework(services);

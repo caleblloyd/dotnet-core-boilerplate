@@ -25,7 +25,18 @@ Vue.use(VueRouter)
 export default function newApp(initialPath?: string): DotvueApp {
     let router = new VueRouter({
         mode: 'history',
-        routes: Routes
+        routes: Routes,
+        scrollBehavior(to, from, savedPosition) {
+            return new Promise((resolve, reject) => {
+                return setTimeout(() => {
+                    if (savedPosition) {
+                        resolve(savedPosition)
+                    } else {
+                        resolve({ x: 0, y: 0 })
+                    }
+                }, 200)
+            })
+        }
     })
     if (initialPath)
         router.push(initialPath)

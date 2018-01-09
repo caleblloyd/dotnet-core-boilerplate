@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.0.0-runtime
+FROM microsoft/aspnetcore:2.0.4-stretch
 
 # add docker user, group, and setup directories
 RUN addgroup --gid 1000 docker && \

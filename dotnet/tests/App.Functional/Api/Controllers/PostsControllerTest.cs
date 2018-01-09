@@ -10,19 +10,17 @@ using Xunit;
 
 namespace App.Functional.Api.Controllers{
 
-    public class PostsControllerTest : IClassFixture<ControllerFixture>
+    public class PostsControllerTest : IClassFixture<ControllerFixture<PostsController>>
     {
-        ControllerFixture _fixture;
+        ControllerFixture<PostsController> _fixture;
 
-        public PostsControllerTest(ControllerFixture fixture)
+        public PostsControllerTest(ControllerFixture<PostsController> fixture)
         {
             _fixture = fixture;
         }
 
         [Fact]
-        public async Task TestCrudAsync(){
-            
-            var controller = new PostsController(_fixture.AppDb);
+        public async Task TestCreateUpdateDelete(){
             int newPostId;
 
             // create
@@ -32,7 +30,7 @@ namespace App.Functional.Api.Controllers{
                     Content = "first post",
                     AuthorId = _fixture.Author.Id
                 };
-                var result = await controller.CreateAsync(newPost);
+                var result = await _fixture.Controller.CreateAsync(newPost);
                 var response = Assert.IsType<OkObjectResult>(result);
                 Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
                 var post = Assert.IsType<Post>(response.Value);
@@ -45,47 +43,51 @@ namespace App.Functional.Api.Controllers{
             // update
             {
                 var updatePost = new Post{
-                    Title = "title 3",
-                    Content = "content 3",
+                    Title = "post 2",
+                    Content = "second post",
                     AuthorId = _fixture.Author.Id
                 };
-                var result = await controller.UpdateAsync(newPostId, updatePost);
+                var result = await _fixture.Controller.UpdateAsync(newPostId, updatePost);
                 var response = Assert.IsType<OkObjectResult>(result);
                 Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
                 var Post = Assert.IsType<Post>(response.Value);
                 Assert.Equal(updatePost.Title, Post.Title);
                 Assert.Equal(updatePost.Content, Post.Content);
             }
-            // list
-            {
-                var result = await controller.ListAsync();
-                var response = Assert.IsType<OkObjectResult>(result);
-                Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
-                var Posts = Assert.IsType<List<Post>>(response.Value);
-                var filteredPosts = Posts.Where(m => _fixture.Posts.Exists(n => n.Id == m.Id) || m.Id == newPostId);
-                Assert.Equal(4, filteredPosts.Count());
-                var i = 3;
-                foreach (var Post in filteredPosts){
-                    Assert.Equal(Post.Title, $"title {i}");
-                    Assert.Equal(Post.Content, $"content {i}");
-                    i--;
-                }
-            }
-            // get
-            {
-                var result = await controller.GetAsync(_fixture.Posts[0].Id);
-                var response = Assert.IsType<OkObjectResult>(result);
-                Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
-                var post = Assert.IsType<Post>(response.Value);
-                Assert.NotNull(post.Author);
-                Assert.Equal(_fixture.Posts[0].Author.Name, post.Author.Name);
-            }
             // delete
             {
-                var result = await controller.DeleteAsync(newPostId);
+                var result = await _fixture.Controller.DeleteAsync(newPostId);
                 var response = Assert.IsType<OkResult>(result);
                 Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
             }
+        }
+
+        [Fact]
+        public async Task TestList()
+        {
+            var result = await _fixture.Controller.ListAsync();
+            var response = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
+            var Posts = Assert.IsType<List<Post>>(response.Value);
+            var filteredPosts = Posts.Where(m => _fixture.Posts.Exists(n => n.Id == m.Id));
+            Assert.Equal(3, filteredPosts.Count());
+            var i = 2;
+            foreach (var Post in filteredPosts){
+                Assert.Equal($"title {i}", Post.Title);
+                Assert.Equal($"content {i}", Post.Content);
+                i--;
+            }
+        }
+
+        [Fact]
+        public async Task TestGet()
+        {
+            var result = await _fixture.Controller.GetAsync(_fixture.Posts[0].Id);
+            var response = Assert.IsType<OkObjectResult>(result);
+            Assert.Equal(StatusCodes.Status200OK, response.StatusCode);
+            var post = Assert.IsType<Post>(response.Value);
+            Assert.NotNull(post.Author);
+            Assert.Equal(_fixture.Posts[0].Author.Name, post.Author.Name);
         }
 
     }

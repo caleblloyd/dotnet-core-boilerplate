@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:1.1.2-runtime
+FROM microsoft/dotnet:2.0.0-runtime
 
 # add docker user, group, and setup directories
 RUN addgroup --gid 1000 docker && \

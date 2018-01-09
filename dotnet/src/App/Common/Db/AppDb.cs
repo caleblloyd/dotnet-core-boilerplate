@@ -1,24 +1,24 @@
 using System;
-using App.Config;
+using App.Common.Config;
 using App.Api.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace App.Db{
+namespace App.Common.Db
+{
     
-    public class AppDb : IdentityDbContext<AppIdentityUser>{
+    public class AppDb : IdentityDbContext<AppIdentityUser>
+	{
+
+		public AppDb(DbContextOptions options) : base(options)
+		{
+		}
         
         public DbSet<Author> Authors { get; set; }
 
         public DbSet<Post> Posts { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-            optionsBuilder.UseMySql(AppConfig.ConnectionString,
-                options => options.MaxBatchSize(Convert.ToInt32(AppConfig.Config["Data:EntityFramework:MaxBatchSize"])));
-		    optionsBuilder.UseLoggerFactory(new LoggerFactory().AddConsole(AppConfig.Config.GetSection("Logging")));
-		}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -53,7 +53,6 @@ namespace App.Db{
 				entity.Property(m => m.UserId).HasMaxLength(127);
 				entity.Property(m => m.LoginProvider).HasMaxLength(127);
 				entity.Property(m => m.Name).HasMaxLength(127);
-
 			});
 		}
 

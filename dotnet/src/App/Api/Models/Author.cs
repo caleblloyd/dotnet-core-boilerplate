@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace App.Api.Models {
 
-    	public static class AuthorMeta{
+    public static class AuthorMeta{
 
         public static void OnModelCreating(ModelBuilder modelBuilder){
 
@@ -30,6 +30,12 @@ namespace App.Api.Models {
         public string Name { get; set; }
 
         public List<Post> Posts { get; set; }
+        private bool _showPosts = false;
+        public void ShowPosts() {
+            _showPosts = true;
+        }
+        public bool ShouldSerializePosts() => _showPosts;
+
     }
     
 }

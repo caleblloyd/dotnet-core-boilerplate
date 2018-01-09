@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:1.1.2-sdk
+FROM microsoft/dotnet:2.0.0-sdk
 
 # add docker user and setup folders
 RUN addgroup --gid 1000 docker && \
@@ -9,7 +9,7 @@ RUN addgroup --gid 1000 docker && \
 # install fixuid
 RUN USER=docker && \
     GROUP=docker && \
-    curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.1/fixuid-0.1-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
+    curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.2/fixuid-0.2-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
     chown root:root /usr/local/bin/fixuid && \
     chmod 4755 /usr/local/bin/fixuid && \
     mkdir -p /etc/fixuid && \

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading;
 using App.Cmd;
-using App.Db;
+using App.Common.Db;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 
-namespace App
+namespace App.Common
 {
     public class Program
     {
@@ -21,8 +21,8 @@ namespace App
                     try
                     {
                         Console.WriteLine($"Migration attempt {tryMigrate + 1}/3");
-                        using (var db = new AppDb())
-                            db.Database.Migrate();
+                        using (var dbScope = new AppDbScope())
+                            dbScope.AppDb.Database.Migrate();
                         Console.WriteLine("Migration complete");
                         break;
                     }

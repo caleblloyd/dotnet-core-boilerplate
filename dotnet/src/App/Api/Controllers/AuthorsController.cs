@@ -1,4 +1,4 @@
-using App.Db;
+using App.Common.Db;
 using App.Api.Models;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +21,8 @@ namespace App.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> ListAsync()
         {
-			return new OkObjectResult(await _db.Authors.OrderBy(m => m.Id).ToListAsync());
+			var results = await _db.Authors.OrderBy(m => m.Id).ToListAsync();
+			return new OkObjectResult(results);
         }
 
         // GET api/authors/5
@@ -32,6 +33,7 @@ namespace App.Api.Controllers
 			await _db.Entry(model).Collection(m => m.Posts).Query().OrderByDescending(m => m.Id).ToListAsync();
 			if (model != null)
 			{
+				model.ShowPosts();
 				return new OkObjectResult(model);
 			}
 			return NotFound();

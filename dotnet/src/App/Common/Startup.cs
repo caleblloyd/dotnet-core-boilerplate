@@ -4,11 +4,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using App.Config;
+using App.Common.Config;
 using Newtonsoft.Json.Converters;
-using App.Db;
+using App.Common.Db;
+using Microsoft.EntityFrameworkCore;
+using System;
 
-namespace App
+namespace App.Common
 {
     public class Startup
     {
@@ -30,13 +32,9 @@ namespace App
                     options.SerializerSettings.Converters.Add(new StringEnumConverter());
                     options.SerializerSettings.Formatting = Formatting.Indented;
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
-                    options.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
                 });
-
-            // Other Options
-            services
-                .AddEntityFrameworkMySql()
-                .AddDbContext<AppDb>(ServiceLifetime.Scoped);
+            
+            ConfigureEntityFramework(services);
 
             // Add CORS if enabled
             if (AppConfig.Config["Frontend:CORS:Host"] != null){
@@ -49,6 +47,14 @@ namespace App
                             .AllowAnyMethod());
                 });
             }
+        }
+
+        public static void ConfigureEntityFramework(IServiceCollection services)
+        {
+            services.AddDbContextPool<AppDb>(
+                options => options.UseMySql(AppConfig.ConnectionString,
+                    mysqlOptions => mysqlOptions.MaxBatchSize(Convert.ToInt32(AppConfig.Config["Data:EntityFramework:MaxBatchSize"]))
+            ));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

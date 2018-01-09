@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using App.Api.Controllers;
 using App.Api.Models;
-using App.Db;
+using App.Common.Db;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
@@ -22,7 +22,7 @@ namespace App.Functional.Api.Controllers{
         [Fact]
         public async Task TestCrudAsync(){
             
-            var controller = new AuthorsController(new AppDb());
+            var controller = new AuthorsController(_fixture.AppDb);
             int newAuthorId;
 
             // create

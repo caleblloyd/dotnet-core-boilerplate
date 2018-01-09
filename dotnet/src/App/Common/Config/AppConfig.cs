@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 
-namespace App.Config{
+namespace App.Common.Config{
 
     public static class AppConfig{
 

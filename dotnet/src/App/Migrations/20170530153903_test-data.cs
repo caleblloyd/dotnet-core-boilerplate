@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.EntityFrameworkCore.Migrations;
-using App.Config;
+using App.Common.Config;
 
 namespace App.Migrations
 {

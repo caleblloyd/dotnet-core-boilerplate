@@ -28,6 +28,13 @@ throttle(['throttleDocker']) {
             ./ci/test/stress.sh
           '''
         }
+        stage('Deploy to Kubernetes') {
+          sh '''
+            version=$(date +%Y%m%d%H%M)
+            ./cd/publish.sh prod dtr.caleb.boxboat.net $version
+            ./cd/deploy-kube.sh prod dtr.caleb.boxboat.net $version
+          '''
+        }
       }
       finally {
         stage('Cleanup') {

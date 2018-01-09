@@ -60,7 +60,11 @@ chmod +x swarm.sh
 #!/bin/bash
 cd $(dirname $0)
 
-java -jar swarm-client-3.3.jar -name "$(hostname)" -executors 8 -labels docker -master "(jenkins ip):8080" -username (username) -password (password) -fsroot /tmp
+JENKINS_IP="10.0.0.1"
+USERNAME="admin"
+PASSWORD="12345678"
+
+java -jar swarm-client-3.3.jar -name "$(hostname)" -executors 8 -labels docker -master "http://$JENKINS_IP:8080" -username "$USERNAME" -password "$PASSWORD" -fsroot /tmp
 ```
 
 6. Edit the file `/etc/systemd/system/jenkins.service` so that it contains the following:

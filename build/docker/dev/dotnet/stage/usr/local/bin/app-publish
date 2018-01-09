@@ -4,7 +4,7 @@ cd /dotnet/src/App
 
 dotnet publish -c Release
 rm -rf /tmp/publish
-mv bin/Release/netcoreapp1.1.2/publish /tmp
+mv bin/Release/netcoreapp2.0/publish /tmp
 mkdir -p /tmp/publish/src/App/Common/Config
 cp Common/Config/*.json /tmp/publish/src/App/Common/Config
 mkdir -p /tmp/publish/src/App/Data

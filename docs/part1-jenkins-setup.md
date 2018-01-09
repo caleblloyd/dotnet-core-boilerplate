@@ -51,7 +51,7 @@ sudo apt install openjdk-8-jdk
 sudo -s
 mkdir -p /usr/local/jenkins
 cd /usr/local/jenkins
-wget https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/3.3/swarm-client-3.3.jar
+wget https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/3.7/swarm-client-3.7.jar
 touch swarm.sh
 chmod +x swarm.sh
 ```

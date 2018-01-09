@@ -17,7 +17,8 @@ newgrp docker
 ```
 mkdir ~/jenkins
 cd ~/jenkins
-docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v $(pwd):/var/jenkins_home --restart always jenkins
+docker pull jenkins/jenkins:latest
+docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v $(pwd):/var/jenkins_home --restart always jenkins/jenkins:latest
 docker logs -f jenkins
 ```
 
@@ -60,7 +61,11 @@ chmod +x swarm.sh
 #!/bin/bash
 cd $(dirname $0)
 
-java -jar swarm-client-3.3.jar -name "$(hostname)" -executors 8 -labels docker -master "(jenkins ip):8080" -username (username) -password (password) -fsroot /tmp
+JENKINS_IP="10.0.0.1"
+USERNAME="admin"
+PASSWORD="12345678"
+
+java -jar swarm-client-3.3.jar -name "$(hostname)" -executors 8 -labels docker -master "http://$JENKINS_IP:8080" -username "$USERNAME" -password "$PASSWORD" -fsroot /tmp
 ```
 
 6. Edit the file `/etc/systemd/system/jenkins.service` so that it contains the following:

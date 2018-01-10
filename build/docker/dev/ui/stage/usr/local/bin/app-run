@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
 cd /ui
-yarn install --no-bin-links
+yarn install
 yarn run start

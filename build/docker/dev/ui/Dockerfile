@@ -17,7 +17,9 @@ ENTRYPOINT ["fixuid"]
 CMD ["app-run"]
 
 # setup cache dir
-RUN mkdir -p /home/node/.cache && \
+RUN mkdir -p /ui/node_modules && \
+    chown -R node:node /ui && \
+    mkdir -p /home/node/.cache && \
     chown node:node /home/node/.cache
 
 # copy staged files

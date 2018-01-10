@@ -1,5 +1,9 @@
 version: "3.1"
 
+volumes:
+  nuget-cache:
+  yarn-cache:
+
 services:
 
   db:
@@ -29,8 +33,14 @@ services:
     ports:
       - "48010:5000"
     volumes:
-      - ./dotnet:/mnt/dotnet
-      - ./build/cache/nuget:/home/docker/.nuget
+      - ./dotnet:/dotnet
+      - /dotnet/src/App/bin
+      - /dotnet/src/App/obj
+      - /dotnet/tests/App.Functional/bin
+      - /dotnet/tests/App.Functional/obj
+      - /dotnet/tests/App.Unit/bin
+      - /dotnet/tests/App.Unit/obj
+      - nuget-cache:/home/docker/.nuget
     user: ${FIXUID:-1000}:${FIXGID:-1000}
     depends_on:
       - db
@@ -53,7 +63,8 @@ services:
       - DEVENV=dev
     volumes:
       - ./ui:/ui
-      - ./build/cache/yarn:/home/node/.cache/yarn
+      - /ui/node_modules
+      - yarn-cache:/home/node/.cache/yarn
     user: ${FIXUID:-1000}:${FIXGID:-1000}
 
   nginx:

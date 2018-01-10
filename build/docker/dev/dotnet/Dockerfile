@@ -15,6 +15,17 @@ RUN USER=docker && \
     mkdir -p /etc/fixuid && \
     printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml
 
+# create directories
+RUN mkdir -p /dotnet/src/App/bin && \
+    mkdir -p /dotnet/src/App/obj && \
+    mkdir -p /dotnet/tests/App.Functional/bin && \
+    mkdir -p /dotnet/tests/App.Functional/obj && \
+    mkdir -p /dotnet/tests/App.Unit/bin && \
+    mkdir -p /dotnet/tests/App.Unit/obj && \
+    chown -R docker:docker /dotnet && \
+    mkdir -p /home/docker/.nuget && \
+    chown docker:docker /home/docker/.nuget
+
 # set entrypoint and command
 ENTRYPOINT ["fixuid"]
 CMD ["app-run"]

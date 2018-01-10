@@ -1,25 +1,25 @@
 <div id="app">
     <div class="container">
 
-        <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <router-link class="navbar-brand" exact to="/">
-            BoxBoat Blog
-        </router-link>
+        <nav class="navbar navbar-expand-md navbar-light bg-light rounded">
+            <router-link v-on:click.native="$el.blur()" id="home" class="navbar-brand" exact to="/">
+                BoxBoat Blog
+            </router-link>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="mr-auto"></div>
-            <ul class="navbar-nav">
-                <router-link tag="li" class="nav-item" active-class="active" exact to="/">
-                    <a class="nav-link">Posts</a>
-                </router-link>
-                <router-link tag="li" class="nav-item" active-class="active" to="/authors">
-                    <a class="nav-link">Authors</a>
-                </router-link>
-            </ul>
-        </div>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ml-auto">
+                    <router-link tag="li" class="nav-item" active-class="active" exact to="/">
+                        <a class="nav-link">Posts</a>
+                    </router-link>
+                    <router-link tag="li" class="nav-item" active-class="active" to="/authors">
+                        <a class="nav-link">Authors</a>
+                    </router-link>
+                </ul>
+            </div>
         </nav>
 
         <transition name="fade" mode="out-in">

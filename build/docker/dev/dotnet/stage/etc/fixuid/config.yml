@@ -1,0 +1,11 @@
+user: docker
+group: docker
+paths:
+  - /
+  - /dotnet/src/App/bin
+  - /dotnet/src/App/obj
+  - /dotnet/tests/App.Functional/bin
+  - /dotnet/tests/App.Functional/obj
+  - /dotnet/tests/App.Unit/bin
+  - /dotnet/tests/App.Unit/obj
+  - /home/docker/.nuget

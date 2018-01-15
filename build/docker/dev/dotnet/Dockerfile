@@ -7,13 +7,9 @@ RUN addgroup --gid 1000 docker && \
     chown -R docker:docker /dotnet
 
 # install fixuid
-RUN USER=docker && \
-    GROUP=docker && \
-    curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.2/fixuid-0.2-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
+RUN curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.3/fixuid-0.3-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
     chown root:root /usr/local/bin/fixuid && \
-    chmod 4755 /usr/local/bin/fixuid && \
-    mkdir -p /etc/fixuid && \
-    printf "user: $USER\ngroup: $GROUP\n" > /etc/fixuid/config.yml
+    chmod 4755 /usr/local/bin/fixuid
 
 # create directories
 RUN mkdir -p /dotnet/src/App/bin && \

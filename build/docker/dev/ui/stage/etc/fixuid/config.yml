@@ -1,0 +1,6 @@
+user: node
+group: node
+paths:
+  - /
+  - /ui/node_modules
+  - /home/node/.cache/yarn

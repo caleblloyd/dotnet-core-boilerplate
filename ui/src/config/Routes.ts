@@ -15,6 +15,7 @@ const routes: RouteConfig[] = [
     { path: '/post/:id', name: 'post', component: makeLazyLoad('PostsController', 'View') },
     { path: '/authors', name: 'authors', component: makeLazyLoad('AuthorsController', 'List') },
     { path: '/author/:id', name: 'author', component: makeLazyLoad('AuthorsController', 'View') },
+    { path: '/chat', name: 'chat', component: makeLazyLoad('ChatController', 'View') },
 ]
 
 export default routes

@@ -8,6 +8,8 @@
     "build": "NODE_ENV='production' node node_modules/webpack/bin/webpack.js"
   },
   "dependencies": {
+    "@aspnet/signalr": "^1.0.0-preview1-update1",
+    "@aspnet/signalr-protocol-msgpack": "^1.0.0-preview1-update1",
     "@types/express": "^4.0.39",
     "@types/morgan": "^1.7.35",
     "@types/node": "^8.0.50",

@@ -9,6 +9,7 @@ using Newtonsoft.Json.Converters;
 using App.Common.Db;
 using Microsoft.EntityFrameworkCore;
 using System;
+using App.Api.Hubs;
 
 namespace App.Common
 {
@@ -33,6 +34,9 @@ namespace App.Common
                     options.SerializerSettings.Formatting = Formatting.Indented;
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
                 });
+            
+            // SignalR
+            services.AddSignalR();
             
             ConfigureEntityFramework(services);
 
@@ -65,6 +69,11 @@ namespace App.Common
             if (AppConfig.Config["Frontend:CORS:Host"] != null){
                 app.UseCors("CorsPolicy");
             }
+            
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/api/chathub");
+            });
 
             app.UseStatusCodePages();
             app.UseMvc();

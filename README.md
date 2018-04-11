@@ -7,7 +7,7 @@ master | develop
 
 A complete .NET Core development environment scaffolded using Docker Compose containing:
 
-- .NET Core 1.1 MVC App with Entity Framework MySQL
+- .NET Core 2.0 MVC App with Entity Framework MySQL
 - MySQL Server
 - phpMyAdmin
 - extensible Javascript UI

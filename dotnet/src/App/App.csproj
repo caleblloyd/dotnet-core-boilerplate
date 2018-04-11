@@ -16,5 +16,42 @@
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <AppConfig Include="Config\**\*.*" />
+    <AppData Include="Data\**\*.*" />
+  </ItemGroup>
+  <Target Name="CopyDirsAfterBuild" AfterTargets="Build">
+    <Copy 
+      SourceFiles="@(AppConfig)" 
+      DestinationFolder="$(OutDir)\Config\%(RecursiveDir)" 
+      SkipUnchangedFiles="true" 
+      OverwriteReadOnlyFiles="true" 
+      Retries="3"
+      RetryDelayMilliseconds="300"/>
+    <Copy 
+      SourceFiles="@(AppData)" 
+      DestinationFolder="$(OutDir)\Data\%(RecursiveDir)" 
+      SkipUnchangedFiles="true" 
+      OverwriteReadOnlyFiles="true" 
+      Retries="3"
+      RetryDelayMilliseconds="300"/>
+  </Target>
+  <Target Name="CopyDirsAfterPublish" AfterTargets="Publish">
+    <Copy 
+      SourceFiles="@(AppConfig)" 
+      DestinationFolder="$(PublishDir)\Config\%(RecursiveDir)" 
+      SkipUnchangedFiles="true" 
+      OverwriteReadOnlyFiles="true" 
+      Retries="3"
+      RetryDelayMilliseconds="300"/>
+    <Copy 
+      SourceFiles="@(AppData)" 
+      DestinationFolder="$(PublishDir)\Data\%(RecursiveDir)" 
+      SkipUnchangedFiles="true" 
+      OverwriteReadOnlyFiles="true" 
+      Retries="3"
+      RetryDelayMilliseconds="300"/>
+  </Target>
   
 </Project>

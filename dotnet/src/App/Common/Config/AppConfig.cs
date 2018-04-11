@@ -1,30 +1,14 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using System.Reflection;
 
 namespace App.Common.Config{
 
     public static class AppConfig{
 
         // directories
-        private static Lazy<string> LazyBaseDir = new Lazy<string>(() => {
-            var dir = Directory.GetCurrentDirectory();
-            while (!File.Exists(Path.Combine(dir, "Common", "Config", "config.json")))
-            {
-                string nextDir;
-                if (Directory.Exists(Path.Combine(dir, "App")))
-                    nextDir = Path.Combine(dir, "App");
-                else if (Directory.Exists(Path.Combine(dir, "src", "App")))
-                    nextDir = Path.Combine(dir, "src", "App");
-                else
-                    nextDir = new DirectoryInfo(dir).Parent?.FullName;
-                    
-                if (nextDir == null)
-                    throw new InvalidOperationException("Could not find src/App/Common/Config/config.json");
-                dir = nextDir;
-            }
-            return dir;
-        });
+        private static Lazy<string> LazyBaseDir = new Lazy<string>(() => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
 
         public static string BaseDir => LazyBaseDir.Value;
 
@@ -39,8 +23,8 @@ namespace App.Common.Config{
         private static Lazy<IConfigurationRoot> LazyConfig = new Lazy<IConfigurationRoot>(() => {
             return new ConfigurationBuilder()
                 .SetBasePath(BaseDir)
-                .AddJsonFile(Path.Combine("Common", "Config", "config.json"), true, true)
-                .AddJsonFile(Path.Combine("Common", "Config", $"config.{DevEnv}.json"), true)
+                .AddJsonFile(Path.Combine("Config", "config.json"), true, true)
+                .AddJsonFile(Path.Combine("Config", $"config.{DevEnv}.json"), true)
                 .Build();
         });
 

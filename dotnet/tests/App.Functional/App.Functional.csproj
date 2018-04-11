@@ -15,4 +15,25 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <AppConfig Include="..\..\src\App\Config\**\*.*" />
+    <AppData Include="..\..\src\App\Data\**\*.*" />
+  </ItemGroup>
+  <Target Name="CopyDirsAfterBuild" AfterTargets="Build">
+    <Copy 
+      SourceFiles="@(AppConfig)" 
+      DestinationFolder="$(OutDir)\Config\%(RecursiveDir)" 
+      SkipUnchangedFiles="true" 
+      OverwriteReadOnlyFiles="true" 
+      Retries="3"
+      RetryDelayMilliseconds="300"/>
+    <Copy 
+      SourceFiles="@(AppData)" 
+      DestinationFolder="$(OutDir)\Data\%(RecursiveDir)" 
+      SkipUnchangedFiles="true" 
+      OverwriteReadOnlyFiles="true" 
+      Retries="3"
+      RetryDelayMilliseconds="300"/>
+  </Target>
+
 </Project>

@@ -19,4 +19,4 @@ We recommend that you use a managed Kubernetes installation.  Some options are:
 
 5. Edit the `Jenkinsfile` - under the `Deploy to Kubernetes` stage, update the registry URL to point at your Docker registry.
 
-6. Run Jenkins Blue Ocean against the `cd-kubernetes` branch to deploy to your Docker Swarm
+6. Run Jenkins Blue Ocean against the `cd-kubernetes` branch to deploy to your kubernetes cluster.

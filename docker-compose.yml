@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.4"
 
 volumes:
   nuget-cache:
@@ -7,7 +7,7 @@ volumes:
 services:
 
   db:
-    image: mysql:5.7.17
+    image: mysql:5.7.22
     container_name: app-dev-db
     environment:
       - MYSQL_ROOT_PASSWORD=test
@@ -15,7 +15,7 @@ services:
       - "48012:3306"
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:4.6
+    image: phpmyadmin/phpmyadmin:4.6.4-1
     container_name: app-dev-phpmyadmin
     environment:
       - MYSQL_ROOT_PASSWORD=test

@@ -1,4 +1,4 @@
-FROM nginx:1.11.10-alpine
+FROM nginx:1.14.0-alpine
 
 # remove default configurations and change ownership
 RUN rm -rf /etc/nginx/conf.d/* && \

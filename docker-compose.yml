@@ -3,24 +3,25 @@ version: "3.4"
 volumes:
   nuget-cache:
   yarn-cache:
+  app-dev-pgadmin:
 
 services:
 
   db:
-    image: mysql:5.7.22
+    image: postgres:10.4-alpine
     container_name: app-dev-db
     environment:
-      - MYSQL_ROOT_PASSWORD=test
+      - POSTGRES_PASSWORD=postgres
     ports:
-      - "48012:3306"
+      - "48012:5432"
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:4.6.4-1
-    container_name: app-dev-phpmyadmin
-    environment:
-      - MYSQL_ROOT_PASSWORD=test
+  pgadmin:
+    image: thajeztah/pgadmin4:3.0
+    container_name: app-dev-pgadmin
     ports:
-      - "48011:80"
+      - "48011:5050"
+    volumes:
+     - app-dev-pgadmin:/pgadmin
     depends_on:
       - db
 

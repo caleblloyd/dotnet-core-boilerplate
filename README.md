@@ -8,8 +8,8 @@ master | develop
 A complete .NET Core development environment scaffolded using Docker Compose containing:
 
 - .NET Core 2.1 MVC App with Entity Framework MySQL
-- MySQL Server
-- phpMyAdmin
+- PostgreSQL Server
+- pgadmin4
 - extensible Javascript UI
 - NGINX
 - Travis CI
@@ -17,8 +17,11 @@ A complete .NET Core development environment scaffolded using Docker Compose con
 
 ## Getting Started
 
-1. Clone Repository
-2. Install [Docker Compose](https://docs.docker.com/compose/install/)
-3. Run `docker-compose up` in repository root
-4. Navigate to `http://<your docker host>:48000`
-
+- Clone Repository
+- Install [Docker Compose](https://docs.docker.com/compose/install/)
+- Run `docker-compose up` in repository root
+- UI: `http://<your docker host>:48000`
+- pgadmin4: `http://<your docker host>:48011`
+  - host: `db`
+  - user: `postgres`
+  - password: `postgres`

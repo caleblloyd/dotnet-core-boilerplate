@@ -4,7 +4,7 @@ using App.Cmd;
 using App.Common.Db;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.MySqlClient;
+using Npgsql;
 
 namespace App.Common
 {
@@ -26,7 +26,7 @@ namespace App.Common
                         Console.WriteLine("Migration complete");
                         break;
                     }
-                    catch (MySqlException e)
+                    catch (NpgsqlException e)
                     {
                         Console.WriteLine("Migration failed");
                         Console.WriteLine(e.Message);

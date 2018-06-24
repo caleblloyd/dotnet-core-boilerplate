@@ -52,8 +52,8 @@ namespace App.Common
         public static void ConfigureEntityFramework(IServiceCollection services)
         {
             services.AddDbContextPool<AppDb>(
-                options => options.UseMySql(AppConfig.ConnectionString,
-                    mysqlOptions => mysqlOptions.MaxBatchSize(Convert.ToInt32(AppConfig.Config["Data:EntityFramework:MaxBatchSize"]))
+                options => options.UseNpgsql(AppConfig.ConnectionString,
+                    providerOptions => providerOptions.MaxBatchSize(Convert.ToInt32(AppConfig.Config["Data:EntityFramework:MaxBatchSize"]))
             ));
         }
 

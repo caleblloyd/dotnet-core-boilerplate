@@ -1,12 +1,12 @@
 {
     "Data": {
-        "MySql": {
+        "Postgres": {
             "Connection": {
                 "host": "db",
-                "port": 3306,
-                "user id": "root",
-                "password": "test",
-                "database": "app"
+                "port": 5432,
+                "username": "postgres",
+                "password": "postgres",
+                "database": "postgres"
             }
         }
     }

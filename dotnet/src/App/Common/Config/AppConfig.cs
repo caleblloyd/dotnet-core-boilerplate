@@ -31,7 +31,7 @@ namespace App.Common.Config{
         public static string ConnectionString => LazyConnectionString.Value;
 
         private static Lazy<string> LazyConnectionString = new Lazy<string>(() => {
-            var section = AppConfig.Config.GetSection("Data:MySql:Connection");
+            var section = AppConfig.Config.GetSection("Data:Postgres:Connection");
             var connectionString = "";
             foreach (var child in section.GetChildren()){
                 string key, value;

@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-sdk-bionic
+FROM microsoft/dotnet:2.1.301-sdk-bionic
 
 # add docker user and setup folders
 RUN addgroup --gid 1000 docker && \

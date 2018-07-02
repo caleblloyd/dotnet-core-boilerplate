@@ -1,4 +1,4 @@
-FROM microsoft/aspnetcore:2.0.4-stretch
+FROM microsoft/aspnetcore:2.1-aspnetcore-runtime-bionic
 
 # add docker user, group, and setup directories
 RUN addgroup --gid 1000 docker && \
